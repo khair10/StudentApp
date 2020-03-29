@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context=".presentation.recallcreation.RecallCreationActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/title_recall_creation"
+        app:navigationIcon="@drawable/ic_navigate_before_on_primary_24dp"
+        tools:layout_editor_absoluteX="0dp"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_recall_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="145dp"
+                        android:layout_height="163dp"
+                        app:srcCompat="@drawable/recall"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Отзыв"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_marginTop="16dp"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginEnd="48dp"
+                        android:gravity="center_horizontal"
+                        android:text="Делитесь мнением о компаниях со своими коллегами."
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tv_student_name"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"-->
+                    <!--                    tools:text="@string/temp_student_name" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_company_name_label"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentStart="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:text="@string/label_company_with_colon"-->
+<!--                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />-->
+
+<!--                        <Spinner-->
+<!--                            android:id="@+id/spin_company_name"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_marginStart="4dp"-->
+<!--                            android:layout_toEndOf="@id/tv_company_name_label" />-->
+<!--                    </RelativeLayout>-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_recall_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:hint="@string/label_company_with_colon"
+                        style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spin_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_create_company"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/action_add_company" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/label_set_rating_with_colon"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+                    <RatingBar
+                        android:id="@+id/rb_company_rating"
+                        style="@style/Widget.AppCompat.RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="false"
+                        android:numStars="5" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_recall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/label_recall_with_colon"
+                        app:errorEnabled="true"
+                        app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_recall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|top"
+                            android:inputType="textMultiLine"
+                            android:maxLines="100"
+                            android:minLines="6"
+                            android:scrollbars="vertical"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                            tools:text="@string/temp_lorem_ipsum" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_create_recall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_create" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="?attr/colorPrimary"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

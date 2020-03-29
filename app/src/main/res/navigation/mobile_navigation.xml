@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_recalls">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.khair.appforitis.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_recalls"
+        android:name="com.khair.appforitis.presentation.main.recalls.RecallListFragment"
+        android:label="@string/title_recalls"
+        tools:layout="@layout/fragment_recall_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.khair.appforitis.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_companies"
+        android:name="com.khair.appforitis.presentation.main.companies.CompanyListFragment"
+        android:label="@string/title_companies"
+        tools:layout="@layout/fragment_company_list" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.khair.appforitis.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_vacancies"
+        android:name="com.khair.appforitis.presentation.main.vacancies.VacancyListFragment"
+        android:label="@string/title_vacancies"
+        tools:layout="@layout/fragment_vacancy_list" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.khair.appforitis.presentation.main.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/activity_profile"/>
+
 </navigation>

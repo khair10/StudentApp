@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_companies"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
+    </LinearLayout>
+</ScrollView>

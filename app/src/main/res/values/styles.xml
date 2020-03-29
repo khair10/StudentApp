@@ -1,11 +1,76 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="colorSecondary">#2196F3</item>-->
+        <item name="colorSecondary">#FFBF00</item>
+        <item name="colorOnSecondary">#000000</item>
+<!--        <item name="android:windowBackground">@color/light_gray_for_bg</item>-->
+        <item name="android:windowBackground">@color/dark_gray_background</item>
+        <item name="textInputStyle">@style/Widget.MyApp.TextInputLayout.OutlinedBox</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MyApp.MaterialAlertDialog</item>
+        <item name="materialButtonStyle">@style/Widget.MyApp.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.MyApp.Button.Outlined</item>
     </style>
 
+    <style name="Theme.SplashActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="Widget.MyApp.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout</item>
+    </style>
+
+    <style name="Widget.MyApp.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ThemeOverlay.MyApp.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/Widget.MyApp.MaterialAlertDialog</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.MyApp.AlertDialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.MyApp.AlertDialog.Body</item>
+    </style>
+
+    <style name="Widget.MyApp.MaterialAlertDialog" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearance.MyApp.MaterialAlertDialog</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.MaterialAlertDialog" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.AlertDialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.AlertDialog.Body" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MyApp.Button</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="Widget.MyApp.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MyApp.Button</item>
+    </style>
 </resources>

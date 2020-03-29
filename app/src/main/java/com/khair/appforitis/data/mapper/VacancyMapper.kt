@@ -1,0 +1,40 @@
+package com.khair.appforitis.data.mapper
+
+import com.khair.appforitis.data.model.NetworkCompanyItemDto
+import com.khair.appforitis.data.model.NetworkStudentItemDto
+import com.khair.appforitis.data.model.NetworkVacancy
+import com.khair.appforitis.domain.entity.CompanyItem
+import com.khair.appforitis.domain.entity.StudentItem
+import com.khair.appforitis.domain.entity.Vacancy
+import com.khair.appforitis.domain.mapper.Mapper
+
+class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
+
+    override fun map(from: NetworkVacancy): Vacancy {
+        return Vacancy(
+            from.id,
+            from.name,
+            from.information,
+            CompanyItem(from.company.id, from.company.name),
+            from.rating,
+            from.recallsCount,
+            from.salary,
+            StudentItem(from.student.id, from.student.name),
+            from.date
+        )
+    }
+
+    override fun reverseMap(to: Vacancy): NetworkVacancy {
+        return NetworkVacancy(
+            to.id,
+            to.name,
+            to.information,
+            NetworkCompanyItemDto(to.company.id, to.company.name),
+            to.rating,
+            to.recallsCount,
+            to.salary,
+            NetworkStudentItemDto(to.company.id, to.company.name),
+            to.date
+        )
+    }
+}

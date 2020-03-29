@@ -3,15 +3,46 @@
     package="com.khair.appforitis">
 
     <application
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.MyApp">
+        <activity android:name=".presentation.splash.SplashActivity"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.registration.RegistrationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="presentation.logintemp.ui.login.LoginTempActivity"
+            android:label="@string/title_activity_login_temp" />
+        <activity android:name=".presentation.profile.ProfileActivity" />
+        <activity
+            android:name=".presentation.profileediting.ProfileEditingActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.vacancycreation.VacancyCreationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.recallcreation.RecallCreationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.companycreation.CompanyCreationActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".presentation.vacancy.VacancyActivity" />
+        <activity android:name=".presentation.company.CompanyActivity" />
+        <activity android:name=".presentation.recall.RecallActivity" />
+        <activity
+            android:name=".presentation.main.MainActivity"
             android:label="@string/app_name">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

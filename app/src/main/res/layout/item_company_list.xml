@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv_company_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    app:rippleColor="@color/light_blue_for_ripple"
+    app:cardCornerRadius="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/tv_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            tools:text="@string/temp_company_name" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_company_name"
+            android:layout_alignParentStart="true">
+
+            <RatingBar
+                android:id="@+id/rb_company_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:numStars="5"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                tools:rating="3" />
+
+            <TextView
+                android:id="@+id/tv_recalls_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/rb_company_rating"
+                android:layout_centerVertical="true"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                tools:text="@string/temp_recalls_count" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+<!--    <View-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:background="@color/dark_gray_background"-->
+<!--        />-->
+
+</com.google.android.material.card.MaterialCardView>

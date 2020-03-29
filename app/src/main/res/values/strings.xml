@@ -1,6 +1,76 @@
 <resources>
     <string name="app_name">AppForItis</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!--  Activity Titles  -->
+    <string name="title_recalls">Отзывы</string>
+    <string name="title_recall">Отзыв</string>
+    <string name="title_recall_creation">Создание отзыва</string>
+    <string name="title_companies">Компании</string>
+    <string name="title_company_information">Информация о компании</string>
+    <string name="title_company_creation">Создание компании</string>
+    <string name="title_vacancies">Вакансии</string>
+    <string name="title_vacancy_information">Информация о вакансии</string>
+    <string name="title_vacancy_creation">Создание вакансии</string>
+
+    <!--  Labels  -->
+    <string name="label_recall_with_colon">Отзыв:</string>
+    <string name="label_company_with_colon">Компания:</string>
+    <!-- <string name="label_vacancy_description">Описание вакансии:</string> -->
+    <!-- <string name="label_vacancy_with_colon">Вакансия:</string> -->
+    <!-- <string name="label_short_information">Краткая информация:</string> -->
+    <string name="label_rating_with_colon">Рейтинг:</string>
+    <string name="label_information_with_colon">Информация:</string>
+    <string name="label_name_with_colon">Название:</string>
+    <string name="label_address_with_colon">Адрес:</string>
+    <string name="label_site_with_colon">Веб-сайт:</string>
+    <string name="label_phone_number_with_colon">Контактный телефон:</string>
+    <string name="label_set_rating_with_colon">Поставьте общую оценку:</string>
+    <string name="label_salary_with_colon">Заработная плата:</string>
+
+    <!--  Actions  -->
+    <string name="action_create">Создать</string>
+    <string name="action_search">Найти</string>
+    <string name="action_add_company">Добавить компанию</string>
+    <string name="action_show_recalls">Отзывы</string>
+    <string name="action_show_details_and_contacts">Детали и контакты</string>
+
+    <!--  Utility strings  -->
+    <string name="title_choose">Выбрать</string>
+    <!-- <string name="title_company">Компания</string> -->
+    <!-- <string name="title_vacancy_details">Детали вакансии</string> -->
+
+    <!--  TEMP  -->
+    <string name="temp_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at elementum orci, non elementum diam. Nullam accumsan finibus elit, iaculis volutpat diam aliquam in. Vivamus ut euismod arcu, eget malesuada metus. Etiam purus massa, tincidunt non sem sit amet, vehicula tincidunt leo. Nullam tellus purus, vestibulum vitae orci placerat, sodales mattis lacus. Mauris convallis turpis ultrices, aliquam massa eu, rhoncus urna. Nunc eleifend, purus in mollis dapibus, lorem dui dictum ligula, id porta enim quam non est. Morbi et mi id eros posuere ornare. Sed lobortis nulla eget efficitur mollis. In hac habitasse platea dictumst. Suspendisse non massa fringilla, accumsan nulla et, ornare ligula. Nam sollicitudin risus quis dignissim molestie. Duis imperdiet ligula eget massa tristique, non scelerisque ligula lacinia. Nam ac eros venenatis justo dictum hendrerit a quis sapien. In magna lorem, suscipit sed urna et, sagittis pharetra lectus. Nullam id tellus at lorem faucibus ultricies a id enim.</string>
+    <string name="temp_vacancy_name">Android разработчик</string>
+    <string name="temp_salary">30 000 руб.</string>
+    <string name="temp_company_name">Citilink</string>
+    <string name="temp_recalls_count">(23чел.)</string>
+    <string name="temp_student_name">Колокольчиков Илья</string>
+    <string name="temp_rating">4.0</string>
+    <string name="temp_address">Ленина 26</string>
+    <string name="temp_site">www.lenina26.com</string>
+    <string name="temp_phone">+7(934)212-22-24</string>
+    <string name="temp_vacancy_date">20.01.98</string>
+    <string name="filter">Фильтр</string>
+    <string name="nothing_found">Ничего не найдено</string>
+    <string name="menu_title_new_first">Сначала новые</string>
+    <string name="menu_title_alphabet_first">По алфавиту</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_profile">Профиль</string>
+    <string name="label_addition_description">Дополнительная информация:</string>
+
+    <string name="title_activity_login_temp">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="action_registration">Регистрация</string>
+    <string name="label_login_with_colon">Логин:</string>
+    <string name="label_password_with_colon">Пароль:</string>
 </resources>
