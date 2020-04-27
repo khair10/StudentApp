@@ -6,6 +6,7 @@ import com.khair.appforitis.data.model.NetworkRegistrationForm
 import com.khair.appforitis.domain.entity.Authentication
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -16,4 +17,7 @@ interface AuthService {
 
     @POST("/registrate")
     fun registrate(@Body registrationForm: NetworkRegistrationForm): Completable
+
+    @POST("/refresh")
+    fun refresh(@Body refreshToken: String): Call<NetworkAuthentication>
 }
