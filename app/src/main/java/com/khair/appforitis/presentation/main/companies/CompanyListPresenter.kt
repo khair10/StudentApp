@@ -1,5 +1,6 @@
 package com.khair.appforitis.presentation.main.companies
 
+import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
 import com.khair.appforitis.domain.repository.Repository
@@ -12,8 +13,10 @@ import io.reactivex.schedulers.Schedulers
 
 class CompanyListPresenter(var view: CompanyListContract.View): CompanyListContract.Presenter {
 
-    private var companyRepository: Repository<Company> =
-        ArrayListCompanyRepository()
+//    private var companyRepository: Repository<Company> =
+//        ArrayListCompanyRepository()
+private var companyRepository: Repository<Company> =
+    CompanyRepository()
     private var companyMapper: OneWayMapper<Company, CompanyPreviewDto> = CompanyMapper()
 
     override fun getCompanies() {

@@ -10,7 +10,9 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Recall
+import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
+import com.khair.appforitis.presentation.profile.ProfileActivity
 
 class RecallActivity : AppCompatActivity(), RecallContract.View {
 
@@ -22,6 +24,9 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
             context.startActivity(intent)
         }
     }
+
+    var studentId: Long = -1
+    var companyId: Long = -1
 
     private lateinit var toolbar: MaterialToolbar
     private lateinit var tvStudentName: TextView
@@ -50,6 +55,8 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
 
     override fun showRecall(recall: Recall) {
         recall.run {
+            studentId = student.id
+            companyId = company.id
             tvStudentName.text = student.name
             tvCompanyName.text = company.name
             tvCompanyRating.text = rating.toString()
@@ -99,7 +106,16 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
     }
 
     private fun initViewListeners() {
-        // TODO
+        tvStudentName.setOnClickListener {
+            if(studentId != -1L)
+                ProfileActivity.start(this, studentId)
+            // TODO что если нет Айди
+        }
+        tvCompanyName.setOnClickListener {
+            if(companyId != -1L)
+                CompanyActivity.start(this, companyId)
+            // TODO что если нет Айди
+        }
     }
 
     private fun initPresenter() {

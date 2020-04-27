@@ -11,5 +11,5 @@ data class NetworkVacancy(
     val recallsCount: Int,
     val salary: Int,
     val student: NetworkStudentItemDto,
-    val date: Date
+    val date: Long
 )

@@ -3,8 +3,10 @@ package com.khair.appforitis.presentation.profileediting
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.database.DataSetObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -17,6 +19,8 @@ import com.khair.appforitis.domain.entity.Profile
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profileediting.dto.CompanyDto
 import com.khair.appforitis.presentation.profileediting.dto.ProfileDto
+import kotlinx.android.synthetic.main.activity_company_creation.*
+import kotlinx.android.synthetic.main.activity_profile_editing.*
 
 class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View {
 
@@ -42,6 +46,7 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
     private lateinit var presenter: ProfileEditingContract.Presenter
 
     private var company: CompanyDto? = null
+    var pos: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,18 +55,44 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
         initViews()
         initViewListeners()
         initPresenter()
+        getCompaniesFromPresenter()
         getProfileFromPresenter()
+    }
+
+    private fun getCompaniesFromPresenter() {
+        presenter.getCompanies()
     }
 
     override fun fillSpinnerWithCompanies(companies: List<CompanyDto>) {
         spinAdapter.clear()
         spinAdapter.addAll(companies)
+//        spinAdapter.registerDataSetObserver(object: DataSetObserver(){
+//            override fun onChanged() {
+//                super.onChanged()
+//                pos = -1
+//                for (i: Int in 0..spinAdapter.count){
+//                    spinAdapter.getItem(i)?.let {
+//                        if(it.id == company?.id){
+//                            pos = i.toLong()
+//                        }
+//                    }
+//                    if(pos != -1L)
+//                        break
+//                }
+//                Log.d("MAIN_ACTIVITY", pos.toString())
+//                if(pos != -1L){
+//                    spinCompany.setText(company?.name)
+//                }
+//            }
+//        })
     }
 
     override fun showProfile(profile: Profile) {
         profile.run {
-            val pos = spinAdapter.getPosition(CompanyDto(this.company.id, this.company.name))
-            spinCompany.setSelection(pos)
+            this@ProfileEditingActivity.company = CompanyDto(company.id, company.name)
+            til_recall_company.hint = company.name
+//            val pos = spinAdapter.getPosition(CompanyDto(company.id, company.name))
+//            Log.d("MAIN_ACTIVITY", pos.toString())
             etName.setText(name)
             etPhone.setText(phone)
             etVk.setText(vk)
@@ -131,8 +162,8 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
                     CompanyDto(company?.id ?: -1L, company?.name ?: ""),
                     etPhone.text.toString(),
                     etVk.text.toString(),
-                    etTelegram.toString(),
-                    etFacebook.toString(),
+                    etTelegram.text.toString(),
+                    etFacebook.text.toString(),
                     etAdditionalDescription.text.toString()
                 )
             )
@@ -143,6 +174,7 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
                 if (item is CompanyDto) {
                     // TODO presenter.rememberSelection()
                     company = item
+                    hideKeyboard()
                 }
             }
         }

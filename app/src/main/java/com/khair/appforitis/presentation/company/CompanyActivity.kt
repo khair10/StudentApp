@@ -23,7 +23,7 @@ class CompanyActivity : AppCompatActivity(), CompanyContract.View {
     companion object {
         const val ID = "ID"
         fun start(context: Context, id: Long){
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(context, CompanyActivity::class.java)
             intent.putExtra(ID, id)
             context.startActivity(intent)
         }

@@ -14,7 +14,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Vacancy
+import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
+import com.khair.appforitis.presentation.profile.ProfileActivity
 
 class VacancyActivity : AppCompatActivity(), VacancyContract.View {
 
@@ -40,6 +42,9 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
 
     private lateinit var vacancyPresenter: VacancyContract.Presenter
 
+    var studentId: Long = -1
+    var companyId: Long = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vacancy)
@@ -52,6 +57,8 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
 
     override fun showVacancy(vacancy: Vacancy) {
         vacancy.run {
+            studentId = student.id
+            companyId = company.id
             tvVacancyName.text = name
             tvVacancySalary.text = salary.toString()
             tvCompanyName.text = company.name
@@ -101,7 +108,13 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
 
     private fun initViewListeners() {
         btnShowDetails.setOnClickListener {
+            if(studentId != -1L)
+                ProfileActivity.start(this, studentId)
             // TODO
+        }
+        tvCompanyName.setOnClickListener {
+            if(companyId != -1L)
+                CompanyActivity.start(this, studentId)
         }
     }
 

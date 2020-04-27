@@ -39,7 +39,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                         tempRecallsCount,
                         tempSalary,
                         NetworkStudentItemDto(0L, "Ключников Илья"),
-                        date.addDays(i)
+                        date.addDays(i).time
                     )
                 )
             }
@@ -53,7 +53,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                     tempRecallsCount,
                     tempSalary,
                     NetworkStudentItemDto(13L, "Варинов Стас"),
-                    date.addDays(13)
+                    date.addDays(13).time
                 )
             )
         }
@@ -71,7 +71,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
                 StudentItem(sourceVacancy.student.id, sourceVacancy.student.name),
-                sourceVacancy.date
+                Date(sourceVacancy.date)
             )
         )
     }
@@ -87,7 +87,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                     it.recallsCount,
                     it.salary,
                     StudentItem(it.student.id, it.student.name),
-                    it.date
+                    Date(it.date)
                 )
             }
         )
@@ -104,7 +104,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 item.recallsCount,
                 item.salary,
                 NetworkStudentItemDto(item.student.id, item.student.name),
-                item.date
+                item.date.time
             )
         )
         ++counter
@@ -123,7 +123,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
                 StudentItem(sourceVacancy.student.id, sourceVacancy.student.name),
-                sourceVacancy.date
+                Date(sourceVacancy.date)
             )
         )
     }

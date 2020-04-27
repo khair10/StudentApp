@@ -7,6 +7,7 @@ import com.khair.appforitis.domain.entity.CompanyItem
 import com.khair.appforitis.domain.entity.StudentItem
 import com.khair.appforitis.domain.entity.Vacancy
 import com.khair.appforitis.domain.mapper.Mapper
+import java.util.*
 
 class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
 
@@ -20,7 +21,7 @@ class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
             from.recallsCount,
             from.salary,
             StudentItem(from.student.id, from.student.name),
-            from.date
+            Date(from.date)
         )
     }
 
@@ -34,7 +35,7 @@ class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
             to.recallsCount,
             to.salary,
             NetworkStudentItemDto(to.company.id, to.company.name),
-            to.date
+            to.date.time
         )
     }
 }

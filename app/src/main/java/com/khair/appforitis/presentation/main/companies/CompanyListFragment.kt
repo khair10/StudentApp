@@ -134,6 +134,7 @@ class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
+            R.id.menu_refresh -> companyListPresenter.getCompanies()
             R.id.search -> item.expandActionView()
         }
         return super.onOptionsItemSelected(item)

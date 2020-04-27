@@ -88,6 +88,7 @@ class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.search -> item.expandActionView()
+            R.id.menu_refresh -> vacancyPresenter.getVacancies()
         }
         return super.onOptionsItemSelected(item)
     }

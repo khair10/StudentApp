@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.vacancycreation
 
+import com.khair.appforitis.data.repositoryimpl.CompanyRepository
+import com.khair.appforitis.data.repositoryimpl.VacancyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListVacancyRepository
 import com.khair.appforitis.domain.entity.Company
@@ -17,8 +19,10 @@ import java.util.*
 
 class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyCreationContract.Presenter {
 
-    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
-    private val vacancyRepository: Repository<Vacancy> = ArrayListVacancyRepository()
+//    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
+//    private val vacancyRepository: Repository<Vacancy> = ArrayListVacancyRepository()
+    private val companyRepository: Repository<Company> = CompanyRepository()
+    private val vacancyRepository: Repository<Vacancy> = VacancyRepository()
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -79,7 +83,7 @@ class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyC
                 item.salary.toIntOrNull() == null -> {
                     "Зарплата не может быть пустой"
                 }
-                item.companyDto.isFullFilled() -> {
+                !item.companyDto.isFullFilled() -> {
                     "Компания должна быть выбрана"
                 }
                 item.description.isBlank() -> {

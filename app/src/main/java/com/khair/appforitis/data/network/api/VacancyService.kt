@@ -7,12 +7,12 @@ import retrofit2.http.*
 
 interface VacancyService {
 
-    @GET("/vacancies")
-    fun getVacancies(@Header("auth") jsonToken: String): Flowable<List<NetworkVacancy>>
+    @GET("/vacancy/list")
+    fun getVacancies(@Header("Authorization") jsonToken: String): Flowable<List<NetworkVacancy>>
 
-    @GET("/vacancies/vacancy/{vacancy_id}")
-    fun getVacancy(@Path("vacancy_id") vacancyId: Long, @Header("auth") jsonToken: String): Flowable<NetworkVacancy>
+    @GET("/vacancy/vacancy/{vacancy_id}")
+    fun getVacancy(@Path("vacancy_id") vacancyId: Long, @Header("Authorization") jsonToken: String): Flowable<NetworkVacancy>
 
-    @POST("/vacancies/vacancy")
-    fun postVacancy(@Body vacancy: NetworkVacancy, @Header("auth") jsonToken: String): Completable
+    @POST("/vacancy/vacancy")
+    fun postVacancy(@Body vacancy: NetworkVacancy, @Header("Authorization") jsonToken: String): Completable
 }

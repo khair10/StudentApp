@@ -129,6 +129,7 @@ class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
+            R.id.menu_refresh -> recallPresenter.getRecalls()
             R.id.search -> item.expandActionView()
             R.id.filter_alpha -> recallPresenter.getRecallsSorted(SortOption.ALPHABET)
             R.id.filter_date -> recallPresenter.getRecallsSorted(SortOption.DATE)

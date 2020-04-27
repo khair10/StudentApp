@@ -33,7 +33,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                         tempDescription,
                         NetworkCompanyItemDto(0L, tempCompanyName),
                         tempRating,
-                        date.addDays(i)
+                        date.addDays(i).time
                     )
                 )
             }
@@ -44,7 +44,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                     tempDescription,
                     NetworkCompanyItemDto(13L, "Tehno"),
                     tempRating,
-                    date.addDays(13)
+                    date.addDays(13).time
                 )
             )
         }
@@ -59,7 +59,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                 sourceRecall.information,
                 CompanyItem(sourceRecall.company.id, sourceRecall.company.name),
                 sourceRecall.rating,
-                sourceRecall.date
+                Date(sourceRecall.date)
             )
         )
     }
@@ -73,7 +73,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                     it.information,
                     CompanyItem(it.company.id, it.company.name),
                     it.rating,
-                    it.date
+                    Date(it.date)
                 )
             }
         )
@@ -87,7 +87,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                 item.information,
                 NetworkCompanyItemDto(item.company.id, item.company.name),
                 item.rating,
-                item.date
+                item.date.time
             )
         )
         ++counter
@@ -103,7 +103,7 @@ class ArrayListRecallRepository: Repository<Recall> {
                 sourceRecall.information,
                 CompanyItem(sourceRecall.company.id, sourceRecall.company.name),
                 sourceRecall.rating,
-                sourceRecall.date
+                Date(sourceRecall.date)
             )
         )
     }

@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.recallcreation
 
+import com.khair.appforitis.data.repositoryimpl.CompanyRepository
+import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListRecallRepository
 import com.khair.appforitis.domain.entity.Company
@@ -17,8 +19,10 @@ import java.util.*
 
 class RecallCreationPresenter(var view: RecallCreationContract.View): RecallCreationContract.Presenter {
 
-    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
-    private val recallRepository: Repository<Recall> = ArrayListRecallRepository()
+//    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
+//    private val recallRepository: Repository<Recall> = ArrayListRecallRepository()
+private val companyRepository: Repository<Company> = CompanyRepository()
+    private val recallRepository: Repository<Recall> = RecallRepository()
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -29,10 +33,10 @@ class RecallCreationPresenter(var view: RecallCreationContract.View): RecallCrea
                     it.name
                 )
             }.toList()
-            .doOnSubscribe{ view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe{ view.showLoading() }
+            .doOnTerminate { view.hideLoading() }
             .subscribe(
                 { companies ->
                     view.fillSpinnerWithCompanies(companies) },
@@ -68,7 +72,7 @@ class RecallCreationPresenter(var view: RecallCreationContract.View): RecallCrea
                 )
         } else {
             val message: String = when {
-                item.companyItemDto.isFullFilled() -> {
+                !item.companyItemDto.isFullFilled() -> {
                     "Компания не может быть пустой"
                 }
                 item.rating == 0F -> {

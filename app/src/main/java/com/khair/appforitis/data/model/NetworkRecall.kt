@@ -8,5 +8,5 @@ data class NetworkRecall(
     val information: String,
     val company: NetworkCompanyItemDto,
     val rating: Float,
-    val date: Date
+    val date: Long
 )

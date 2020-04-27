@@ -71,7 +71,8 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
     }
 
     override fun openLogin() {
-
+        LoginActivity.start(this)
+        finish()
     }
 
     private fun initToolbar() {

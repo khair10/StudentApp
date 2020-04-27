@@ -1,6 +1,9 @@
 package com.khair.appforitis.presentation.login
 
+import android.util.Log
+import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.data.repositoryimpl.LoginRepository
+import com.khair.appforitis.domain.entity.Authentication
 import com.khair.appforitis.domain.entity.LoginForm
 import com.khair.appforitis.domain.repository.AuthRepository
 import com.khair.appforitis.presentation.login.dto.LoginDto
@@ -16,8 +19,8 @@ class LoginPresenter(var view: LoginContract.View): LoginContract.Presenter {
         if(loginForm.isFullFilled()){
             loginRepository.login(
                 LoginForm(
-                    loginForm.login,
-                    loginForm.password
+                    loginForm.login!!,
+                    loginForm.password!!
                 )
             )
                 .subscribeOn(Schedulers.io())
@@ -25,15 +28,18 @@ class LoginPresenter(var view: LoginContract.View): LoginContract.Presenter {
                 .doOnSubscribe{ view.showLoading() }
                 .doOnTerminate{ view.hideLoading() }
                 .subscribe(
-                    { view.openHome() },
+                    { next ->
+                        AuthenticationProvider.saveAuthentication(Authentication(next.id, next.name, next.jsonToken))
+                        view.openHome()
+                    },
                     { exception -> view.showError(exception?.message ?: unknownException) }
                 )
         }else{
             val message: String = when {
-                loginForm.login.isBlank() -> {
+                loginForm.login?.isBlank() ?: true -> {
                     "Логин не может быть пустым"
                 }
-                loginForm.password.isBlank() -> {
+                loginForm.password?.isBlank() ?: true -> {
                     "Пароль не может быть пустым"
                 }
                 else -> return

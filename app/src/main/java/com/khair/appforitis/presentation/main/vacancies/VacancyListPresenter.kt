@@ -1,5 +1,6 @@
 package com.khair.appforitis.presentation.main.vacancies
 
+import com.khair.appforitis.data.repositoryimpl.VacancyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListVacancyRepository
 import com.khair.appforitis.domain.entity.Vacancy
 import com.khair.appforitis.domain.mapper.OneWayMapper
@@ -12,8 +13,10 @@ import io.reactivex.schedulers.Schedulers
 
 class VacancyListPresenter(private var view: VacancyListContract.View): VacancyListContract.Presenter {
 
-    private val vacancyRepository: Repository<Vacancy> =
-        ArrayListVacancyRepository()
+//    private val vacancyRepository: Repository<Vacancy> =
+//        ArrayListVacancyRepository()
+private val vacancyRepository: Repository<Vacancy> =
+    VacancyRepository()
     private val vacancyMapper: OneWayMapper<Vacancy, VacancyPreviewDto> = VacancyMapper()
 
     override fun getVacancies() {

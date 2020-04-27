@@ -11,8 +11,10 @@ import java.util.concurrent.TimeUnit
 
 class VacancyPresenter(var view: VacancyContract.View): VacancyContract.Presenter {
 
-    private val vacancyRepository: Repository<Vacancy> =
-        ArrayListVacancyRepository()
+//    private val vacancyRepository: Repository<Vacancy> =
+//        ArrayListVacancyRepository()
+private val vacancyRepository: Repository<Vacancy> =
+    VacancyRepository()
 
     override fun getVacancy(id: Long) {
         vacancyRepository.get(id)

@@ -18,6 +18,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.khair.appforitis.R
 import com.khair.appforitis.presentation.login.LoginActivity
+import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
 import com.khair.appforitis.presentation.vacancy.VacancyActivity
 import com.khair.appforitis.presentation.vacancycreation.dto.CompanyDto
 import com.khair.appforitis.presentation.vacancycreation.dto.StudentDto
@@ -30,7 +31,7 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
 
     companion object {
         fun start(context: Context){
-            val intent = Intent(context, VacancyActivity::class.java)
+            val intent = Intent(context, VacancyCreationActivity::class.java)
             context.startActivity(intent)
         }
     }
@@ -46,7 +47,7 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
     private lateinit var presenter: VacancyCreationContract.Presenter
 
     // TODO move to presenter
-    private var company: CompanyDto? = null
+    private var company: CompanyDto = CompanyDto(-1, "", 0F, 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,8 +125,7 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
                 VacancyCreationDto(
                     etName.text.toString(),
                     etSalary.text.toString(),
-                    CompanyDto(company?.id ?: -1L, company?.name ?: "",
-                        company?.rating ?: 0F, company?.recallsCount ?: -1),
+                    company,
                     etDescription.text.toString(),
                     StudentDto(studentId, studentName)
                 )
@@ -136,7 +136,7 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
                 val item: Any = adapterView.getItemAtPosition(position)
                 if (item is CompanyDto) {
                     // TODO presenter.rememberSelection()
-                    company = item
+                    company = CompanyDto(item.id, item.name, item.rating, item.recallsCount)
                 }
             }
         }

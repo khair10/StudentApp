@@ -86,17 +86,15 @@ class ArrayListProfileRepository: Repository<Profile> {
     }
 
     override fun add(item: Profile): Completable {
-        (networkProfiles as ArrayList).add(
-            NetworkProfile(
-                item.id,
-                item.name,
-                NetworkCompanyItemDto(item.company.id, item.company.name),
-                item.phone,
-                item.vk,
-                item.telegram,
-                item.facebook,
-                item.additionalInformation
-            )
+        (networkProfiles as ArrayList)[item.id.toInt()] = NetworkProfile(
+            item.id,
+            item.name,
+            NetworkCompanyItemDto(item.company.id, item.company.name),
+            item.phone,
+            item.vk,
+            item.telegram,
+            item.facebook,
+            item.additionalInformation
         )
         ++counter
         return Completable.complete()

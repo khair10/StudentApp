@@ -1,5 +1,6 @@
 package com.khair.appforitis.presentation.companycreation
 
+import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
 import com.khair.appforitis.domain.repository.Repository
@@ -10,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 
 class CompanyCreationPresenter(var view: CompanyCreationContract.View): CompanyCreationContract.Presenter {
 
-    private val repository: Repository<Company> = ArrayListCompanyRepository()
+//    private val repository: Repository<Company> = ArrayListCompanyRepository()
+    private val repository: Repository<Company> = CompanyRepository()
 
     override fun addCompany(item: CompanyCreationDto) {
         if (item.isFullFilled()){

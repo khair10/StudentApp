@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         }
         btnRegistration.setOnClickListener {
             RegistrationActivity.start(this)
+            finish()
         }
     }
 

@@ -10,11 +10,13 @@ import com.khair.appforitis.presentation.main.MainActivity
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_MyApp)
         super.onCreate(savedInstanceState)
         if (AuthenticationProvider.isAuthenticated()) {
             MainActivity.start(this)
         } else {
             LoginActivity.start(this)
         }
+        finish()
     }
 }

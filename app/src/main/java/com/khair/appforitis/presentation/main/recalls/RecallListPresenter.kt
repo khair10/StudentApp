@@ -1,5 +1,6 @@
 package com.khair.appforitis.presentation.main.recalls
 
+import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListRecallRepository
 import com.khair.appforitis.domain.entity.Recall
 import com.khair.appforitis.domain.repository.Repository
@@ -12,8 +13,10 @@ import io.reactivex.schedulers.Schedulers
 
 class RecallListPresenter(var view: RecallListContract.View): RecallListContract.Presenter {
 
-    private val recallRepository: Repository<Recall> =
-        ArrayListRecallRepository()
+//    private val recallRepository: Repository<Recall> =
+//        ArrayListRecallRepository()
+private val recallRepository: Repository<Recall> =
+    RecallRepository()
     private val recallMapper: OneWayMapper<Recall, RecallPreviewDto> = RecallMapper()
 
     override fun getRecalls() {

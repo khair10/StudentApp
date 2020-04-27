@@ -8,6 +8,7 @@ interface ProfileEditingContract {
 
     interface Presenter{
 
+        fun getCompanies()
         fun getProfile()
         fun setProfile(profile: ProfileDto)
     }

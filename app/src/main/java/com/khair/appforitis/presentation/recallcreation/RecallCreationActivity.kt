@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -13,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.khair.appforitis.R
+import com.khair.appforitis.presentation.companycreation.CompanyCreationActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
 import com.khair.appforitis.presentation.recallcreation.dto.RecallCreationDto
@@ -36,11 +38,12 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
     private lateinit var btnCreate: MaterialButton
+    private lateinit var btnAddCompany: MaterialButton
 
     private lateinit var presenter: RecallCreationContract.Presenter
 
     // TODO move to presenter
-    private var company: CompanyItemDto? = null
+    private var company: CompanyItemDto = CompanyItemDto(-1L,"")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +100,7 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
         spinCompanies = findViewById(R.id.spin_company_name)
         rbRationg = findViewById(R.id.rb_company_rating)
         btnCreate = findViewById(R.id.btn_create_recall)
+        btnAddCompany = findViewById(R.id.btn_create_company)
         spinAdapter = ArrayAdapter<CompanyItemDto>(
             this,
             R.layout.support_simple_spinner_dropdown_item,
@@ -115,18 +119,22 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
             presenter.addRecall(
                 RecallCreationDto(
                     StudentItemDto(studentId, studentName),
-                    CompanyItemDto(company?.id ?: -1, company?.name ?: ""),
+                    company,
                     etDescription.text.toString(),
                     rbRationg.rating
                 )
             )
+        }
+        btnAddCompany.setOnClickListener {
+            CompanyCreationActivity.start(this)
         }
         spinCompanies.setOnItemClickListener { adapterView, _, position, _ ->
             run {
                 val item: Any = adapterView.getItemAtPosition(position)
                 if (item is CompanyItemDto) {
                     // TODO presenter.rememberSelection()
-                    company = item
+                    Log.d("MAIN", "${item.id} ${item.name}")
+                    company = CompanyItemDto(item.id, item.name)
                 }
             }
         }

@@ -87,7 +87,7 @@
                     android:id="@+id/tv_vk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_phone_black_24dp"
+                    android:drawableStart="@drawable/ic_link_black_24dp"
                     android:drawablePadding="4dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:text="vk.com/42342342" />
@@ -96,7 +96,7 @@
                     android:id="@+id/tv_telegram"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_phone_black_24dp"
+                    android:drawableStart="@drawable/ic_link_black_24dp"
                     android:drawablePadding="4dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:text="\@tele_monster" />
@@ -105,7 +105,7 @@
                     android:id="@+id/tv_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_phone_black_24dp"
+                    android:drawableStart="@drawable/ic_link_black_24dp"
                     android:drawablePadding="4dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     tools:text="facebook.com/12312312" />

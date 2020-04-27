@@ -7,15 +7,15 @@ import retrofit2.http.*
 
 interface RecallService {
 
-    @GET("/reviews")
-    fun getRecalls(@Header("auth") jsonToken: String): Flowable<List<NetworkRecall>>
+    @GET("/recalls/list")
+    fun getRecalls(@Header("Authorization") jsonToken: String): Flowable<List<NetworkRecall>>
 
-    @GET("/reviews/{query}")
-    fun getRecallsWithQuery(@Path("query") query: String, @Header("auth") jsonToken: String): Flowable<List<NetworkRecall>>
+    @GET("/recalls/list/{query}")
+    fun getRecallsWithQuery(@Path("query") query: String, @Header("Authorization") jsonToken: String): Flowable<List<NetworkRecall>>
 
-    @GET("/reviews/review/{review_id}")
-    fun getRecall(@Path("review_id") reviewId: Long, @Header("auth") jsonToken: String): Flowable<NetworkRecall>
+    @GET("/recalls/recall/{review_id}")
+    fun getRecall(@Path("review_id") reviewId: Long, @Header("Authorization") jsonToken: String): Flowable<NetworkRecall>
 
-    @POST("/reviews/review")
-    fun postRecall(@Body recall: NetworkRecall, @Header("auth") jsonToken: String): Completable
+    @POST("/recalls/recall")
+    fun postRecall(@Body recall: NetworkRecall, @Header("Authorization") jsonToken: String): Completable
 }

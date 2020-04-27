@@ -10,7 +10,8 @@ import io.reactivex.schedulers.Schedulers
 
 class CompanyPresenter(var view: CompanyContract.View): CompanyContract.Presenter {
 
-    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
+//    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
+    private val companyRepository: Repository<Company> = CompanyRepository()
 
     override fun getCompany(id: Long) {
         companyRepository.get(id)

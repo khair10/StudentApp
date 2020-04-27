@@ -7,6 +7,7 @@ import com.khair.appforitis.domain.entity.CompanyItem
 import com.khair.appforitis.domain.entity.Recall
 import com.khair.appforitis.domain.entity.StudentItem
 import com.khair.appforitis.domain.mapper.Mapper
+import java.util.*
 
 class RecallMapper: Mapper<NetworkRecall, Recall> {
 
@@ -17,7 +18,7 @@ class RecallMapper: Mapper<NetworkRecall, Recall> {
             from.information,
             CompanyItem(from.company.id, from.company.name),
             from.rating,
-            from.date
+            Date(from.date)
         )
     }
 
@@ -28,7 +29,7 @@ class RecallMapper: Mapper<NetworkRecall, Recall> {
             to.information,
             NetworkCompanyItemDto(to.company.id, to.company.name),
             to.rating,
-            to.date
+            to.date.time
         )
     }
 }
