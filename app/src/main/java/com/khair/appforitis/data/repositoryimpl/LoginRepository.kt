@@ -3,7 +3,6 @@ package com.khair.appforitis.data.repositoryimpl
 import com.khair.appforitis.data.mapper.LoginMapper
 import com.khair.appforitis.data.model.NetworkLoginForm
 import com.khair.appforitis.data.network.ApiFactory
-import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.domain.entity.Authentication
 import com.khair.appforitis.domain.entity.LoginForm
 import com.khair.appforitis.domain.mapper.OneWayMapper
@@ -19,6 +18,6 @@ class LoginRepository: AuthRepository<LoginForm> {
     override fun login(loginForm: LoginForm): Flowable<Authentication> {
         val networkLoginForm = loginMapper.map(loginForm)
         return apiFactory.authService.login(networkLoginForm)
-            .map { item -> Authentication(item.studentItemDto.id, item.studentItemDto.name, item.jwtToken) }
+            .map { item -> Authentication(item.studentItemDto.studentId, item.studentItemDto.name, item.jwtToken, item.refreshToken) }
     }
 }

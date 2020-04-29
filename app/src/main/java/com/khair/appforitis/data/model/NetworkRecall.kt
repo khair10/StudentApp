@@ -1,12 +1,17 @@
 package com.khair.appforitis.data.model
 
-import java.util.*
+import io.realm.RealmObject
+import io.realm.annotations.Ignore
+import io.realm.annotations.PrimaryKey
 
-data class NetworkRecall(
-    val id: Long,
-    val student: NetworkStudentItemDto,
-    val information: String,
-    val company: NetworkCompanyItemDto,
-    val rating: Float,
-    val date: Long
-)
+open class NetworkRecall(
+    @PrimaryKey
+    var id: Long = 0,
+    @Ignore
+    val student: NetworkStudentItemDto = NetworkStudentItemDto(),
+    var information: String = "",
+    @Ignore
+    val company: NetworkCompanyItemDto = NetworkCompanyItemDto(),
+    var rating: Float = 0F,
+    var date: Long = 0
+): RealmObject()

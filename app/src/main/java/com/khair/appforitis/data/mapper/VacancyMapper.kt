@@ -20,7 +20,7 @@ class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
             from.rating,
             from.recallsCount,
             from.salary,
-            StudentItem(from.student.id, from.student.name),
+            StudentItem(from.student.studentId, from.student.name),
             Date(from.date)
         )
     }

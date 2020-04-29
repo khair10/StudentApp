@@ -7,5 +7,4 @@ data class NetworkAuthentication(
     val studentItemDto: NetworkStudentItemDto,
     val jwtToken: String,
     val refreshToken: String
-) {
-}
+)

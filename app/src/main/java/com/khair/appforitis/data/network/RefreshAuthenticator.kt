@@ -1,10 +1,9 @@
 package com.khair.appforitis.data.network
 
-import com.khair.appforitis.baseUrl
+import com.khair.appforitis.BuildConfig
 import com.khair.appforitis.data.model.NetworkAuthentication
 import com.khair.appforitis.data.network.api.AuthService
 import com.khair.appforitis.domain.entity.Authentication
-import io.reactivex.schedulers.Schedulers
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -27,7 +26,7 @@ class RefreshAuthenticator: Authenticator {
         if (response.code == notLoggedResponseCode && authProvider.authentication != null && authProvider.isAuthenticated()) {
 
             val refreshTokenResponse: retrofit2.Response<NetworkAuthentication> = Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(BuildConfig.API_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AuthService::class.java)
@@ -38,7 +37,7 @@ class RefreshAuthenticator: Authenticator {
                 refreshTokenResponse.body()?.let {
                     authProvider.saveAuthentication(
                         Authentication(
-                            it.studentItemDto.id,
+                            it.studentItemDto.studentId,
                             it.studentItemDto.name,
                             it.jwtToken,
                             it.refreshToken

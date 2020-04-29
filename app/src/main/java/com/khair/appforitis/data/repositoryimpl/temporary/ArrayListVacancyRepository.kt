@@ -1,6 +1,5 @@
 package com.khair.appforitis.data.repositoryimpl.temporary
 
-import android.util.Log
 import com.khair.appforitis.data.model.NetworkCompanyItemDto
 import com.khair.appforitis.data.model.NetworkStudentItemDto
 import com.khair.appforitis.data.model.NetworkVacancy
@@ -70,7 +69,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.rating,
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
-                StudentItem(sourceVacancy.student.id, sourceVacancy.student.name),
+                StudentItem(sourceVacancy.student.studentId, sourceVacancy.student.name),
                 Date(sourceVacancy.date)
             )
         )
@@ -86,7 +85,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                     it.rating,
                     it.recallsCount,
                     it.salary,
-                    StudentItem(it.student.id, it.student.name),
+                    StudentItem(it.student.studentId, it.student.name),
                     Date(it.date)
                 )
             }
@@ -122,7 +121,7 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.rating,
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
-                StudentItem(sourceVacancy.student.id, sourceVacancy.student.name),
+                StudentItem(sourceVacancy.student.studentId, sourceVacancy.student.name),
                 Date(sourceVacancy.date)
             )
         )

@@ -1,6 +1,6 @@
 package com.khair.appforitis.data.network
 
-import com.khair.appforitis.baseUrl
+import com.khair.appforitis.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,7 +22,7 @@ object RetrofitHelper {
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.API_ENDPOINT)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)

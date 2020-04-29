@@ -1,7 +1,8 @@
 package com.khair.appforitis.data.model
 
-data class NetworkCompanyItemDto(
-    val id: Long,
-    val name: String
-) {
-}
+import io.realm.RealmObject
+
+open class NetworkCompanyItemDto(
+    var id: Long = 0,
+    var name: String = ""
+): RealmObject()

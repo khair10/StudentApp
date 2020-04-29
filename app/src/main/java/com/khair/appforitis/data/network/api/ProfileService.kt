@@ -8,14 +8,14 @@ import retrofit2.http.*
 interface ProfileService {
 
     @GET("/users/list")
-    fun getProfiles(@Header("Authorization") jsonToken: String): Flowable<List<NetworkProfile>>
+    fun getProfiles(): Flowable<List<NetworkProfile>>
 
     @GET("/users/user")
-    fun getMyProfile(@Header("Authorization") jsonToken: String): Flowable<NetworkProfile>
+    fun getMyProfile(): Flowable<NetworkProfile>
 
     @GET("/users/user/{user_id}")
-    fun getProfile(@Path("user_id") userId: Long, @Header("Authorization") jsonToken: String): Flowable<NetworkProfile>
+    fun getProfile(@Path("user_id") userId: Long): Flowable<NetworkProfile>
 
     @POST("/users/user")
-    fun editProfile(@Body networkProfile: NetworkProfile, @Header("Authorization") jsonToken: String): Completable
+    fun editProfile(@Body networkProfile: NetworkProfile): Completable
 }

@@ -55,7 +55,7 @@ class ArrayListRecallRepository: Repository<Recall> {
         return Flowable.just(
             Recall(
                 sourceRecall.id,
-                StudentItem(sourceRecall.student.id, sourceRecall.student.name),
+                StudentItem(sourceRecall.student.studentId, sourceRecall.student.name),
                 sourceRecall.information,
                 CompanyItem(sourceRecall.company.id, sourceRecall.company.name),
                 sourceRecall.rating,
@@ -69,7 +69,7 @@ class ArrayListRecallRepository: Repository<Recall> {
             networkRecalls.map {
                 Recall(
                     it.id,
-                    StudentItem(it.student.id, it.student.name),
+                    StudentItem(it.student.studentId, it.student.name),
                     it.information,
                     CompanyItem(it.company.id, it.company.name),
                     it.rating,
@@ -99,7 +99,7 @@ class ArrayListRecallRepository: Repository<Recall> {
         return Flowable.just(
             Recall(
                 sourceRecall.id,
-                StudentItem(sourceRecall.student.id, sourceRecall.student.name),
+                StudentItem(sourceRecall.student.studentId, sourceRecall.student.name),
                 sourceRecall.information,
                 CompanyItem(sourceRecall.company.id, sourceRecall.company.name),
                 sourceRecall.rating,

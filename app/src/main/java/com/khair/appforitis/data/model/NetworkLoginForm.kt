@@ -6,6 +6,4 @@ data class NetworkLoginForm(
     @SerializedName("login")
     val login: String,
     @SerializedName("password")
-    val password: String) {
-
-}
+    val password: String)

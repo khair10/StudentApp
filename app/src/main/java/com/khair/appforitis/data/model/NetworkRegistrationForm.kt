@@ -5,5 +5,4 @@ data class NetworkRegistrationForm(
     val password: String,
     val passwordConfirm: String,
     val profile: NetworkProfileItem
-) {
-}
+)

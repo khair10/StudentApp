@@ -1,6 +1,10 @@
 package com.khair.appforitis.data.repositoryimpl
 
+import com.khair.appforitis.data.cache.CacheListReader
+import com.khair.appforitis.data.cache.CacheSingleReader
+import com.khair.appforitis.data.cache.CacheWriter
 import com.khair.appforitis.data.mapper.VacancyMapper
+import com.khair.appforitis.data.model.NetworkVacancy
 import com.khair.appforitis.data.network.ApiFactory
 import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.domain.entity.Recall
@@ -16,39 +20,42 @@ class VacancyRepository: Repository<Vacancy> {
     private val exception = IllegalAccessException("Вы не авторизованы")
 
     override fun get(id: Long): Flowable<Vacancy> {
-        if(AuthenticationProvider.isAuthenticated()) {
-            val authentication = AuthenticationProvider.fetchAuthentication()
-            return apiFactory.vacancyService.getVacancy(id, authentication.jsonToken)
+//        if(AuthenticationProvider.isAuthenticated()) {
+//            val authentication = AuthenticationProvider.fetchAuthentication()
+            return apiFactory.vacancyService.getVacancy(id)
+                .onErrorResumeNext(CacheSingleReader(id, NetworkVacancy::class.java))
                 .map { vacancyMapper.map(it) }
-        }
-        return Flowable.error<Vacancy>(exception)
+//        }
+//        return Flowable.error<Vacancy>(exception)
     }
 
     override fun getAll(): Flowable<List<Vacancy>> {
-        if(AuthenticationProvider.isAuthenticated()) {
-            val authentication = AuthenticationProvider.fetchAuthentication()
-            return apiFactory.vacancyService.getVacancies(authentication.jsonToken)
+//        if(AuthenticationProvider.isAuthenticated()) {
+//            val authentication = AuthenticationProvider.fetchAuthentication()
+            return apiFactory.vacancyService.getVacancies()
+                .flatMap (CacheWriter(NetworkVacancy::class.java))
+                .onErrorResumeNext(CacheListReader(NetworkVacancy::class.java))
                 .concatMap { Flowable.fromIterable(it) }
                 .map { vacancyMapper.map(it) }
                 .toList()
                 .toFlowable()
-        }
-        return Flowable.error<List<Vacancy>>(exception)
+//        }
+//        return Flowable.error<List<Vacancy>>(exception)
     }
 
     override fun add(item: Vacancy): Completable {
-        if(AuthenticationProvider.isAuthenticated()) {
-            val authentication = AuthenticationProvider.fetchAuthentication()
+//        if(AuthenticationProvider.isAuthenticated()) {
+//            val authentication = AuthenticationProvider.fetchAuthentication()
             val networkVacancy = vacancyMapper.reverseMap(item)
-            return apiFactory.vacancyService.postVacancy(networkVacancy, authentication.jsonToken)
-        }
-        return Completable.error(exception)
+            return apiFactory.vacancyService.postVacancy(networkVacancy)
+//        }
+//        return Completable.error(exception)
     }
 
     override fun get(): Flowable<Vacancy> {
-        if(AuthenticationProvider.isAuthenticated()) {
+//        if(AuthenticationProvider.isAuthenticated()) {
             return Flowable.empty<Vacancy>()
-        }
-        return Flowable.error(exception)
+//        }
+//        return Flowable.error(exception)
     }
 }
