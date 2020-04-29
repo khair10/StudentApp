@@ -8,6 +8,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -18,7 +20,7 @@ import com.khair.appforitis.presentation.companycreation.dto.CompanyCreationDto
 import com.khair.appforitis.presentation.login.LoginActivity
 
 
-class CompanyCreationActivity : AppCompatActivity(), CompanyCreationContract.View {
+class CompanyCreationActivity : MvpAppCompatActivity(), CompanyCreationContract.View {
 
     companion object {
         fun start(context: Context){
@@ -36,7 +38,8 @@ class CompanyCreationActivity : AppCompatActivity(), CompanyCreationContract.Vie
     private lateinit var mcContainer: MaterialCardView
     private lateinit var btnCreate: MaterialButton
 
-    private lateinit var presenter: CompanyCreationContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: CompanyCreationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +47,6 @@ class CompanyCreationActivity : AppCompatActivity(), CompanyCreationContract.Vie
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
     }
 
     override fun finishActivity() {
@@ -106,10 +108,6 @@ class CompanyCreationActivity : AppCompatActivity(), CompanyCreationContract.Vie
                 )
             )
         }
-    }
-
-    private fun initPresenter() {
-        presenter = CompanyCreationPresenter(this)
     }
 
     private fun hideKeyboard() {

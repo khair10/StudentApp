@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.vacancycreation
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.VacancyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
@@ -17,12 +19,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyCreationContract.Presenter {
+@InjectViewState
+class VacancyCreationPresenter(): MvpPresenter<VacancyCreationContract.View>(), VacancyCreationContract.Presenter {
 
 //    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
 //    private val vacancyRepository: Repository<Vacancy> = ArrayListVacancyRepository()
     private val companyRepository: Repository<Company> = CompanyRepository()
     private val vacancyRepository: Repository<Vacancy> = VacancyRepository()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getCompanies()
+    }
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -38,13 +46,13 @@ class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyC
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
-                { companies -> view.fillSpinnerWithCompanies(companies)},
+                { companies -> viewState.fillSpinnerWithCompanies(companies)},
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
@@ -66,13 +74,13 @@ class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyC
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe{ view.showLoading() }
-                .doOnTerminate{ view.hideLoading() }
+                .doOnSubscribe{ viewState.showLoading() }
+                .doOnTerminate{ viewState.hideLoading() }
                 .subscribe (
-                    { view.finishActivity() },
+                    { viewState.finishActivity() },
                     { exception -> when(exception){
-                        is IllegalAccessException -> view.openLoginPage()
-                        else -> view.showError(exception.message ?: unknownException)
+                        is IllegalAccessException -> viewState.openLoginPage()
+                        else -> viewState.showError(exception.message ?: unknownException)
                     } }
                 )
         } else {
@@ -91,7 +99,7 @@ class VacancyCreationPresenter(var view: VacancyCreationContract.View): VacancyC
                 }
                 else -> return
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }

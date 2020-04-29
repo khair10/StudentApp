@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.recallcreation
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
@@ -17,12 +19,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class RecallCreationPresenter(var view: RecallCreationContract.View): RecallCreationContract.Presenter {
+@InjectViewState
+class RecallCreationPresenter(): MvpPresenter<RecallCreationContract.View>(), RecallCreationContract.Presenter {
 
 //    private val companyRepository: Repository<Company> = ArrayListCompanyRepository()
 //    private val recallRepository: Repository<Recall> = ArrayListRecallRepository()
 private val companyRepository: Repository<Company> = CompanyRepository()
     private val recallRepository: Repository<Recall> = RecallRepository()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getCompanies()
+    }
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -35,14 +43,14 @@ private val companyRepository: Repository<Company> = CompanyRepository()
             }.toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{ view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe{ viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { companies ->
-                    view.fillSpinnerWithCompanies(companies) },
+                    viewState.fillSpinnerWithCompanies(companies) },
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
@@ -61,13 +69,13 @@ private val companyRepository: Repository<Company> = CompanyRepository()
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe{ view.showLoading() }
-                .doOnTerminate{ view.hideLoading() }
+                .doOnSubscribe{ viewState.showLoading() }
+                .doOnTerminate{ viewState.hideLoading() }
                 .subscribe (
-                    { view.finishActivity() },
+                    { viewState.finishActivity() },
                     { exception -> when(exception){
-                        is IllegalAccessException -> view.openLoginPage()
-                        else -> view.showError(exception.message ?: unknownException)
+                        is IllegalAccessException -> viewState.openLoginPage()
+                        else -> viewState.showError(exception.message ?: unknownException)
                     } }
                 )
         } else {
@@ -83,7 +91,7 @@ private val companyRepository: Repository<Company> = CompanyRepository()
                 }
                 else -> return
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }

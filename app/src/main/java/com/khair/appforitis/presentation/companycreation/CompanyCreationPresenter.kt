@@ -1,15 +1,19 @@
 package com.khair.appforitis.presentation.companycreation
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
 import com.khair.appforitis.domain.repository.Repository
+import com.khair.appforitis.presentation.company.CompanyContract
 import com.khair.appforitis.presentation.companycreation.dto.CompanyCreationDto
 import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CompanyCreationPresenter(var view: CompanyCreationContract.View): CompanyCreationContract.Presenter {
+@InjectViewState
+class CompanyCreationPresenter: MvpPresenter<CompanyCreationContract.View>(), CompanyCreationContract.Presenter {
 
 //    private val repository: Repository<Company> = ArrayListCompanyRepository()
     private val repository: Repository<Company> = CompanyRepository()
@@ -30,13 +34,13 @@ class CompanyCreationPresenter(var view: CompanyCreationContract.View): CompanyC
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe{ view.showLoading() }
-                .doOnTerminate{ view.hideLoading() }
+                .doOnSubscribe{ viewState.showLoading() }
+                .doOnTerminate{ viewState.hideLoading() }
                 .subscribe(
-                    { view.finishActivity() },
+                    { viewState.finishActivity() },
                     { exception -> when(exception){
-                        is IllegalAccessException -> view.openLoginPage()
-                        else -> view.showError(exception.message ?: unknownException)
+                        is IllegalAccessException -> viewState.openLoginPage()
+                        else -> viewState.showError(exception.message ?: unknownException)
                     } }
                 )
         } else {
@@ -58,7 +62,7 @@ class CompanyCreationPresenter(var view: CompanyCreationContract.View): CompanyC
                 }
                 else -> return
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }

@@ -9,12 +9,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Profile
 import com.khair.appforitis.presentation.login.LoginActivity
 
-class ProfileActivity : AppCompatActivity(), ProfileContract.View {
+class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
 
     companion object {
         const val ID = "ID"
@@ -35,7 +38,13 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
 
-    private lateinit var presenter: ProfileContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: ProfilePresenter
+
+    @ProvidePresenter
+    fun provideProfilePresenter(): ProfilePresenter{
+        return ProfilePresenter(intent.getLongExtra(ID, 0L))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +52,6 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        getProfileFromPresenter()
     }
 
     override fun showProfile(profile: Profile) {
@@ -96,14 +103,5 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View {
 
     private fun initViewListeners() {
         //TODO Listeners
-    }
-
-    private fun initPresenter() {
-        presenter = ProfilePresenter(this)
-    }
-
-    private fun getProfileFromPresenter() {
-        val profileId = intent.getLongExtra(ID, 0)
-        presenter.getProfile(profileId)
     }
 }

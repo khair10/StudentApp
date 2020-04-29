@@ -9,6 +9,9 @@ import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -18,7 +21,7 @@ import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profile.ProfileActivity
 
-class VacancyActivity : AppCompatActivity(), VacancyContract.View {
+class VacancyActivity : MvpAppCompatActivity(), VacancyContract.View {
 
     companion object {
         const val ID = "ID"
@@ -40,7 +43,13 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
 
-    private lateinit var vacancyPresenter: VacancyContract.Presenter
+    @InjectPresenter
+    lateinit var vacancyPresenter: VacancyPresenter
+
+    @ProvidePresenter
+    fun provideVacacnyPresenter(): VacancyPresenter {
+        return VacancyPresenter(intent.getLongExtra(ID, 0))
+    }
 
     var studentId: Long = -1
     var companyId: Long = -1
@@ -51,8 +60,6 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        getVacancyFromPresenter()
     }
 
     override fun showVacancy(vacancy: Vacancy) {
@@ -116,14 +123,5 @@ class VacancyActivity : AppCompatActivity(), VacancyContract.View {
             if(companyId != -1L)
                 CompanyActivity.start(this, studentId)
         }
-    }
-
-    private fun initPresenter() {
-        vacancyPresenter = VacancyPresenter(this)
-    }
-
-    private fun getVacancyFromPresenter(){
-        val vacancyId = intent.getLongExtra(ID, 0)
-        vacancyPresenter.getVacancy(vacancyId)
     }
 }

@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.main.companies
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
@@ -11,13 +13,18 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CompanyListPresenter(var view: CompanyListContract.View): CompanyListContract.Presenter {
+@InjectViewState
+class CompanyListPresenter(): MvpPresenter<CompanyListContract.View>(), CompanyListContract.Presenter {
 
 //    private var companyRepository: Repository<Company> =
 //        ArrayListCompanyRepository()
-private var companyRepository: Repository<Company> =
-    CompanyRepository()
+    private var companyRepository: Repository<Company> = CompanyRepository()
     private var companyMapper: OneWayMapper<Company, CompanyPreviewDto> = CompanyMapper()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getCompanies()
+    }
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -28,13 +35,13 @@ private var companyRepository: Repository<Company> =
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { companies -> checkAndShow(companies) },
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
@@ -56,18 +63,18 @@ private var companyRepository: Repository<Company> =
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { companies -> checkAndShow(companies) },
-                { exception -> view.showError(exception.message ?: unknownException) }
+                { exception -> viewState.showError(exception.message ?: unknownException) }
             )
     }
 
     private fun checkAndShow(companies: List<CompanyPreviewDto>){
         if(companies.isEmpty())
-            view.showEmpty()
+            viewState.showEmpty()
         else
-            view.showCompanies(companies)
+            viewState.showCompanies(companies)
     }
 }

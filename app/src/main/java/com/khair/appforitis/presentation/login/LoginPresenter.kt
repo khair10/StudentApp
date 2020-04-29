@@ -1,6 +1,7 @@
 package com.khair.appforitis.presentation.login
 
-import android.util.Log
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.data.repositoryimpl.LoginRepository
 import com.khair.appforitis.domain.entity.Authentication
@@ -11,7 +12,8 @@ import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LoginPresenter(var view: LoginContract.View): LoginContract.Presenter {
+@InjectViewState
+class LoginPresenter: MvpPresenter<LoginContract.View>(), LoginContract.Presenter {
 
     private val loginRepository: AuthRepository<LoginForm> = LoginRepository()
 
@@ -25,14 +27,14 @@ class LoginPresenter(var view: LoginContract.View): LoginContract.Presenter {
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe{ view.showLoading() }
-                .doOnTerminate{ view.hideLoading() }
+                .doOnSubscribe{ viewState.showLoading() }
+                .doOnTerminate{ viewState.hideLoading() }
                 .subscribe(
                     { next ->
-                        AuthenticationProvider.saveAuthentication(Authentication(next.id, next.name, next.jsonToken))
-                        view.openHome()
+                        AuthenticationProvider.saveAuthentication(Authentication(next.id, next.name, next.jsonToken, next.refreshToken))
+                        viewState.openHome()
                     },
-                    { exception -> view.showError(exception?.message ?: unknownException) }
+                    { exception -> viewState.showError(exception?.message ?: unknownException) }
                 )
         }else{
             val message: String = when {
@@ -44,7 +46,7 @@ class LoginPresenter(var view: LoginContract.View): LoginContract.Presenter {
                 }
                 else -> return
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }

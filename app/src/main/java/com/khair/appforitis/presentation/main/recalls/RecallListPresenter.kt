@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.main.recalls
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListRecallRepository
 import com.khair.appforitis.domain.entity.Recall
@@ -11,13 +13,19 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RecallListPresenter(var view: RecallListContract.View): RecallListContract.Presenter {
+@InjectViewState
+class RecallListPresenter(): MvpPresenter<RecallListContract.View>(), RecallListContract.Presenter {
 
 //    private val recallRepository: Repository<Recall> =
 //        ArrayListRecallRepository()
 private val recallRepository: Repository<Recall> =
     RecallRepository()
     private val recallMapper: OneWayMapper<Recall, RecallPreviewDto> = RecallMapper()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getRecalls()
+    }
 
     override fun getRecalls() {
         recallRepository.getAll()
@@ -26,13 +34,13 @@ private val recallRepository: Repository<Recall> =
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { recalls -> checkAndShow(recalls) },
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
@@ -52,11 +60,11 @@ private val recallRepository: Repository<Recall> =
             .toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { recalls -> checkAndShow(recalls) },
-                { exception -> view.showError(exception.message ?: unknownException) }
+                { exception -> viewState.showError(exception.message ?: unknownException) }
             )
     }
 
@@ -70,11 +78,11 @@ private val recallRepository: Repository<Recall> =
                     .toList()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe { view.showLoading() }
-                    .doOnTerminate { view.hideLoading() }
+                    .doOnSubscribe { viewState.showLoading() }
+                    .doOnTerminate { viewState.hideLoading() }
                     .subscribe(
                         { recalls -> checkAndShow(recalls) },
-                        { exception -> view.showError(exception.message ?: unknownException) }
+                        { exception -> viewState.showError(exception.message ?: unknownException) }
                     )
             }
             SortOption.DATE -> {
@@ -85,11 +93,11 @@ private val recallRepository: Repository<Recall> =
                     .toList()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe { view.showLoading() }
-                    .doOnTerminate { view.hideLoading() }
+                    .doOnSubscribe { viewState.showLoading() }
+                    .doOnTerminate { viewState.hideLoading() }
                     .subscribe(
                         { recalls -> checkAndShow(recalls) },
-                        { exception -> view.showError(exception.message ?: unknownException) }
+                        { exception -> viewState.showError(exception.message ?: unknownException) }
                     )
             }
         }
@@ -97,8 +105,8 @@ private val recallRepository: Repository<Recall> =
 
     private fun checkAndShow(recalls: List<RecallPreviewDto>){
         if(recalls.isEmpty())
-            view.showEmpty()
+            viewState.showEmpty()
         else
-            view.showRecalls(recalls)
+            viewState.showRecalls(recalls)
     }
 }

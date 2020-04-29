@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -18,7 +20,7 @@ import com.khair.appforitis.presentation.login.dto.LoginDto
 import com.khair.appforitis.presentation.main.MainActivity
 import com.khair.appforitis.presentation.registration.RegistrationActivity
 
-class LoginActivity : AppCompatActivity(), LoginContract.View {
+class LoginActivity : MvpAppCompatActivity(), LoginContract.View {
 
     companion object {
         fun start(context: Context){
@@ -34,7 +36,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var btnLogin: MaterialButton
     private lateinit var btnRegistration: MaterialButton
 
-    private lateinit var presenter: LoginContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +45,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
     }
 
     override fun showError(message: String) {
@@ -99,10 +101,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             RegistrationActivity.start(this)
             finish()
         }
-    }
-
-    private fun initPresenter() {
-        presenter = LoginPresenter(this)
     }
 
     private fun hideKeyboard() {

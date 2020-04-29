@@ -16,6 +16,8 @@ import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -28,7 +30,7 @@ import com.khair.appforitis.presentation.main.recalls.util.RecallListAdapter
 import com.khair.appforitis.presentation.recall.RecallActivity
 import com.khair.appforitis.presentation.recallcreation.RecallCreationActivity
 
-class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
+class RecallListFragment : MvpAppCompatFragment(), Navigation, RecallListContract.View {
 
     private lateinit var rvRecalls: RecyclerView
     private lateinit var fabAddRecall: FloatingActionButton
@@ -36,7 +38,9 @@ class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
     private lateinit var tvEmpty: TextView
     private lateinit var recallListAdapter: RecallListAdapter
     private lateinit var pbLoading: ProgressBar
-    private lateinit var recallPresenter: RecallListContract.Presenter
+
+    @InjectPresenter
+    lateinit var recallPresenter: RecallListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +55,6 @@ class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
         val root = inflater.inflate(R.layout.fragment_recall_list, container, false)
         initViews(root)
         initViewListeners()
-        initPresenter()
-        getRecallListFromPresenter()
         return root
     }
 
@@ -93,10 +95,6 @@ class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
             adapter = recallListAdapter
         }
         pbLoading = root.findViewById(R.id.pb_loading)
-    }
-
-    private fun initPresenter() {
-        recallPresenter = RecallListPresenter(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -158,10 +156,6 @@ class RecallListFragment : Fragment(), Navigation, RecallListContract.View {
         activity?.let {
             RecallActivity.start(it, id)
         }
-    }
-
-    private fun getRecallListFromPresenter() {
-        recallPresenter.getRecalls()
     }
 
     override fun showRecalls(recalls: List<RecallPreviewDto>) {

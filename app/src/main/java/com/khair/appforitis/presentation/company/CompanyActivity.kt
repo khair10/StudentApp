@@ -9,6 +9,9 @@ import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -18,7 +21,7 @@ import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.domain.entity.Company
 import com.khair.appforitis.presentation.login.LoginActivity
 
-class CompanyActivity : AppCompatActivity(), CompanyContract.View {
+class CompanyActivity : MvpAppCompatActivity(), CompanyContract.View {
 
     companion object {
         const val ID = "ID"
@@ -42,7 +45,13 @@ class CompanyActivity : AppCompatActivity(), CompanyContract.View {
     private lateinit var mcContainer: MaterialCardView
     private lateinit var btnShowRecalls: MaterialButton
 
-    private lateinit var presenter: CompanyContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: CompanyPresenter
+
+    @ProvidePresenter
+    fun provideCompanyPresenter(): CompanyPresenter{
+        return CompanyPresenter(intent.getLongExtra(ID, 0))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +59,6 @@ class CompanyActivity : AppCompatActivity(), CompanyContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        getCompanyFromPresenter()
     }
 
     override fun showCompany(company: Company) {
@@ -111,14 +118,5 @@ class CompanyActivity : AppCompatActivity(), CompanyContract.View {
         btnShowRecalls.setOnClickListener {
             // TODO
         }
-    }
-
-    private fun initPresenter() {
-        presenter = CompanyPresenter(this)
-    }
-
-    private fun getCompanyFromPresenter() {
-        val companyId = intent.getLongExtra(ID, 0)
-        presenter.getCompany(companyId)
     }
 }

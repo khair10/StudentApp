@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -22,7 +24,7 @@ import com.khair.appforitis.presentation.recallcreation.dto.StudentItemDto
 import com.khair.appforitis.studentId
 import com.khair.appforitis.studentName
 
-class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
+class RecallCreationActivity : MvpAppCompatActivity(), RecallCreationContract.View{
 
     companion object {
         fun start(context: Context){
@@ -40,7 +42,8 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
     private lateinit var btnCreate: MaterialButton
     private lateinit var btnAddCompany: MaterialButton
 
-    private lateinit var presenter: RecallCreationContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: RecallCreationPresenter
 
     // TODO move to presenter
     private var company: CompanyItemDto = CompanyItemDto(-1L,"")
@@ -51,8 +54,6 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        presenter.getCompanies()
     }
 
     override fun finishActivity() {
@@ -138,10 +139,6 @@ class RecallCreationActivity : AppCompatActivity(), RecallCreationContract.View{
                 }
             }
         }
-    }
-
-    private fun initPresenter() {
-        presenter = RecallCreationPresenter(this)
     }
 
     private fun hideKeyboard() {

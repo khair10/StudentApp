@@ -3,14 +3,13 @@ package com.khair.appforitis.presentation.profileediting
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.database.DataSetObserver
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
@@ -19,10 +18,9 @@ import com.khair.appforitis.domain.entity.Profile
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profileediting.dto.CompanyDto
 import com.khair.appforitis.presentation.profileediting.dto.ProfileDto
-import kotlinx.android.synthetic.main.activity_company_creation.*
 import kotlinx.android.synthetic.main.activity_profile_editing.*
 
-class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View {
+class ProfileEditingActivity : MvpAppCompatActivity(), ProfileEditingContract.View {
 
     companion object {
         fun start(context: Context){
@@ -43,7 +41,8 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
     private lateinit var btnEdit: MaterialButton
     private lateinit var spinAdapter: ArrayAdapter<CompanyDto>
 
-    private lateinit var presenter: ProfileEditingContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: ProfileEditingPresenter
 
     private var company: CompanyDto? = null
     var pos: Long = -1
@@ -54,13 +53,6 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        getCompaniesFromPresenter()
-        getProfileFromPresenter()
-    }
-
-    private fun getCompaniesFromPresenter() {
-        presenter.getCompanies()
     }
 
     override fun fillSpinnerWithCompanies(companies: List<CompanyDto>) {
@@ -156,7 +148,7 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
     private fun initViewListeners() {
         btnEdit.setOnClickListener {
             hideKeyboard()
-            presenter.setProfile(
+            presenter.saveProfile(
                 ProfileDto(
                     etName.text.toString(),
                     CompanyDto(company?.id ?: -1L, company?.name ?: ""),
@@ -178,14 +170,6 @@ class ProfileEditingActivity : AppCompatActivity(), ProfileEditingContract.View 
                 }
             }
         }
-    }
-
-    private fun initPresenter() {
-        presenter = ProfileEditingPresenter(this)
-    }
-
-    private fun getProfileFromPresenter() {
-        presenter.getProfile()
     }
 
     private fun hideKeyboard() {

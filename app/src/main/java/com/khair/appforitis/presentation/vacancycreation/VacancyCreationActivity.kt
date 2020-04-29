@@ -12,6 +12,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -27,7 +29,7 @@ import com.khair.appforitis.studentId
 import com.khair.appforitis.studentName
 
 
-class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.View {
+class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.View {
 
     companion object {
         fun start(context: Context){
@@ -44,7 +46,9 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
     private lateinit var spinAdapter: ArrayAdapter<CompanyDto>
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
-    private lateinit var presenter: VacancyCreationContract.Presenter
+
+    @InjectPresenter
+    lateinit var presenter: VacancyCreationPresenter
 
     // TODO move to presenter
     private var company: CompanyDto = CompanyDto(-1, "", 0F, 0)
@@ -56,8 +60,6 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
 //        supportActionBar?.setDisplayShowTitleEnabled(false)
         initViews()
         initViewListeners()
-        initPresenter()
-        presenter.getCompanies()
     }
 
     override fun fillSpinnerWithCompanies(companies: List<CompanyDto>) {
@@ -141,10 +143,6 @@ class VacancyCreationActivity : AppCompatActivity(), VacancyCreationContract.Vie
             }
         }
         spinCompanies.setOnKeyListener(null)
-    }
-
-    private fun initPresenter() {
-        presenter = VacancyCreationPresenter(this)
     }
 
     private fun hideKeyboard() {

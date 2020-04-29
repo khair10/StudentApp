@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.profile
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.ProfileRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListProfileRepository
 import com.khair.appforitis.domain.entity.Profile
@@ -8,22 +10,28 @@ import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ProfilePresenter(var view: ProfileContract.View): ProfileContract.Presenter {
+@InjectViewState
+class ProfilePresenter(val id: Long): MvpPresenter<ProfileContract.View>(), ProfileContract.Presenter {
 
 //    private var repository: Repository<Profile> = ArrayListProfileRepository()
-private var repository: Repository<Profile> = ProfileRepository()
+    private var repository: Repository<Profile> = ProfileRepository()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getProfile(id)
+    }
 
     override fun getProfile(id: Long) {
         repository.get(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate{ view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate{ viewState.hideLoading() }
             .subscribe(
-                {profile -> view.showProfile(profile)},
+                {profile -> viewState.showProfile(profile)},
                 {exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showException(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showException(exception.message ?: unknownException)
                 }}
             )
     }

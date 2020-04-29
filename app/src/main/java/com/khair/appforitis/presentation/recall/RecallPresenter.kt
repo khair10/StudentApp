@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.recall
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListRecallRepository
 import com.khair.appforitis.domain.entity.Recall
@@ -8,24 +10,30 @@ import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RecallPresenter(var view: RecallContract.View): RecallContract.Presenter {
+@InjectViewState
+class RecallPresenter(val id: Long): MvpPresenter<RecallContract.View>(), RecallContract.Presenter {
 
 //    private val recallRepository: Repository<Recall> =
 //        ArrayListRecallRepository()
 private val recallRepository: Repository<Recall> =
     RecallRepository()
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getRecall(id)
+    }
+
     override fun getRecall(id: Long) {
         recallRepository.get(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { view.showLoading() }
-            .doOnTerminate{ view.hideLoading() }
+            .doOnSubscribe { viewState.showLoading() }
+            .doOnTerminate{ viewState.hideLoading() }
             .subscribe(
-                {recall -> view.showRecall(recall)},
+                {recall -> viewState.showRecall(recall)},
                 {exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 }}
             )
     }

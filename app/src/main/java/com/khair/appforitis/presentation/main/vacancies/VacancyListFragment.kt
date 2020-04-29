@@ -17,6 +17,8 @@ import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -30,7 +32,7 @@ import com.khair.appforitis.presentation.vacancy.VacancyActivity
 import com.khair.appforitis.presentation.vacancycreation.VacancyCreationActivity
 
 
-class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
+class VacancyListFragment : MvpAppCompatFragment(), Navigation, VacancyListContract.View {
 
     private lateinit var rvVacancies: RecyclerView
     private lateinit var fabAddVacancy: FloatingActionButton
@@ -38,7 +40,9 @@ class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
     private lateinit var tvEmpty: TextView
     private lateinit var pbLoading: ProgressBar
     private lateinit var vacancyListAdapter: VacancyListAdapter
-    private lateinit var vacancyPresenter: VacancyListContract.Presenter
+
+    @InjectPresenter
+    lateinit var vacancyPresenter: VacancyListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +57,6 @@ class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
         val root = inflater.inflate(R.layout.fragment_vacancy_list, container, false)
         initViews(root)
         initViewListeners()
-        initPresenter()
-        getVacancyListFromRepository()
         return root
     }
 
@@ -134,10 +136,6 @@ class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
         }
     }
 
-    private fun initPresenter() {
-        vacancyPresenter = VacancyListPresenter(this)
-    }
-
     private fun initViews(root: View) {
         tvEmpty = root.findViewById(R.id.tv_empty)
         fabAddVacancy = root.findViewById(R.id.fab_add_vacancy)
@@ -157,10 +155,6 @@ class VacancyListFragment : Fragment(), Navigation, VacancyListContract.View {
         activity?.let {
             VacancyActivity.start(it, id)
         }
-    }
-
-    private fun getVacancyListFromRepository() {
-        vacancyPresenter.getVacancies()
     }
 
     override fun showVacancies(vacancies: List<VacancyPreviewDto>) {

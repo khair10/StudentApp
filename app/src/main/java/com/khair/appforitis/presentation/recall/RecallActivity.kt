@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
@@ -14,7 +17,7 @@ import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profile.ProfileActivity
 
-class RecallActivity : AppCompatActivity(), RecallContract.View {
+class RecallActivity : MvpAppCompatActivity(), RecallContract.View {
 
     companion object {
         const val ID = "ID"
@@ -41,7 +44,13 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
 
-    private lateinit var recallPresenter: RecallContract.Presenter
+    @InjectPresenter
+    lateinit var recallPresenter: RecallPresenter
+
+    @ProvidePresenter
+    fun provideRecallPresenter(): RecallPresenter {
+        return RecallPresenter(intent.getLongExtra(ID, 0))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +58,6 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
-        getRecallFromPresenter()
     }
 
     override fun showRecall(recall: Recall) {
@@ -116,14 +123,5 @@ class RecallActivity : AppCompatActivity(), RecallContract.View {
                 CompanyActivity.start(this, companyId)
             // TODO что если нет Айди
         }
-    }
-
-    private fun initPresenter() {
-        recallPresenter = RecallPresenter(this)
-    }
-
-    private fun getRecallFromPresenter() {
-        val recallId = intent.getLongExtra(ID, 0)
-        recallPresenter.getRecall(recallId)
     }
 }

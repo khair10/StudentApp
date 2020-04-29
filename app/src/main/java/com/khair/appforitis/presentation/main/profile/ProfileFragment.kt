@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -18,7 +20,7 @@ import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profileediting.ProfileEditingActivity
 import com.khair.appforitis.studentId
 
-class ProfileFragment : Fragment(), ProfileContract.View {
+class ProfileFragment : MvpAppCompatFragment(), ProfileContract.View {
 
     private lateinit var tvName: TextView
     private lateinit var tvCompanyName: TextView
@@ -31,7 +33,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     private lateinit var mcContainer: MaterialCardView
     private lateinit var btnEdit: MaterialButton
 
-    private lateinit var presenter: ProfileContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: ProfilePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +48,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         initViews(root)
         initViewListeners()
-        initPresenter()
-        getProfileFromPresenter()
         return root
     }
 
@@ -70,14 +71,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         activity?.let {
             LoginActivity.start(it)
         }
-    }
-
-    private fun getProfileFromPresenter() {
-        presenter.getProfile()
-    }
-
-    private fun initPresenter() {
-        presenter = ProfilePresenter(this)
     }
 
     private fun initViewListeners() {

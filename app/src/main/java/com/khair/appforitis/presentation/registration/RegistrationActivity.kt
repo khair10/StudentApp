@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -21,7 +23,7 @@ import com.khair.appforitis.presentation.login.dto.LoginDto
 import com.khair.appforitis.presentation.registration.dto.ProfileDto
 import com.khair.appforitis.presentation.registration.dto.RegistrationDto
 
-class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
+class RegistrationActivity : MvpAppCompatActivity(), RegistrationContract.View {
 
     companion object {
         fun start(context: Context){
@@ -40,7 +42,8 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
     private lateinit var pbLoading: ProgressBar
     private lateinit var mcContainer: MaterialCardView
 
-    private lateinit var presenter: RegistrationContract.Presenter
+    @InjectPresenter
+    lateinit var presenter: RegistrationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,6 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
         initToolbar()
         initViews()
         initViewListeners()
-        initPresenter()
     }
 
     override fun showError(message: String) {
@@ -113,10 +115,6 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
         btnLogin.setOnClickListener {
             LoginActivity.start(this)
         }
-    }
-
-    private fun initPresenter() {
-        presenter = RegistrationPresenter(this)
     }
 
     private fun hideKeyboard() {

@@ -16,6 +16,8 @@ import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -28,7 +30,7 @@ import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.main.companies.dto.CompanyPreviewDto
 import com.khair.appforitis.presentation.main.companies.util.CompanyListAdapter
 
-class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
+class CompanyListFragment : MvpAppCompatFragment(), Navigation, CompanyListContract.View {
 
     private lateinit var rvCompanies: RecyclerView
     private lateinit var fabAddCompany: FloatingActionButton
@@ -36,7 +38,9 @@ class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
     private lateinit var tvEmpty: TextView
     private lateinit var companyListAdapter: CompanyListAdapter
     private lateinit var pbLoading: ProgressBar
-    private lateinit var companyListPresenter: CompanyListContract.Presenter
+
+    @InjectPresenter
+    lateinit var companyListPresenter: CompanyListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +55,6 @@ class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
         val root = inflater.inflate(R.layout.fragment_company_list, container, false)
         initViews(root)
         initViewListeners()
-        initPresenter()
-        getCompanyListFromPresenter()
         return root
     }
 
@@ -93,10 +95,6 @@ class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
             adapter = companyListAdapter
         }
         pbLoading = root.findViewById(R.id.pb_loading)
-    }
-
-    private fun initPresenter() {
-        companyListPresenter = CompanyListPresenter(this)
     }
 
     override fun navigate(id: Long) {
@@ -155,10 +153,6 @@ class CompanyListFragment : Fragment(), Navigation, CompanyListContract.View {
             }
         }
         searchView.setOnQueryTextListener(queryTextListener)
-    }
-
-    private fun getCompanyListFromPresenter() {
-        return companyListPresenter.getCompanies()
     }
 
     override fun showCompanies(companies: List<CompanyPreviewDto>) {

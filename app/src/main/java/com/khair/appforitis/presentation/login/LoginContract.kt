@@ -1,5 +1,8 @@
 package com.khair.appforitis.presentation.login
 
+import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.presentation.login.dto.LoginDto
 
 interface LoginContract {
@@ -9,8 +12,9 @@ interface LoginContract {
         fun login(loginForm: LoginDto)
     }
 
-    interface View {
+    interface View: MvpView {
 
+        @StateStrategyType(AddToEndSingleStrategy::class)
         fun showError(message: String)
         fun showLoading()
         fun hideLoading()

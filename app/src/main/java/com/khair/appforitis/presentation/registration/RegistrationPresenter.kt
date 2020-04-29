@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.registration
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.RegistrationRepositoryImpl
 import com.khair.appforitis.domain.entity.ProfileItem
 import com.khair.appforitis.domain.entity.RegistrationForm
@@ -9,7 +11,8 @@ import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class RegistrationPresenter(val view: RegistrationContract.View): RegistrationContract.Presenter {
+@InjectViewState
+class RegistrationPresenter(): MvpPresenter<RegistrationContract.View>(), RegistrationContract.Presenter {
 
     private val registrationRepository: RegistrationRepository<RegistrationForm> = RegistrationRepositoryImpl()
 
@@ -28,11 +31,11 @@ class RegistrationPresenter(val view: RegistrationContract.View): RegistrationCo
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { view.showLoading() }
-                .doOnTerminate { view.hideLoading() }
+                .doOnSubscribe { viewState.showLoading() }
+                .doOnTerminate { viewState.hideLoading() }
                 .subscribe(
-                    { view.openLogin() },
-                    { exception -> view.showError(exception?.message ?: unknownException) }
+                    { viewState.openLogin() },
+                    { exception -> viewState.showError(exception?.message ?: unknownException) }
                 )
         } else {
             val message: String = when {
@@ -56,7 +59,7 @@ class RegistrationPresenter(val view: RegistrationContract.View): RegistrationCo
                 }
                 else -> return
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }

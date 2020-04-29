@@ -1,5 +1,7 @@
 package com.khair.appforitis.presentation.profileediting
 
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.ProfileRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
@@ -16,12 +18,19 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ProfileEditingPresenter(var view: ProfileEditingContract.View): ProfileEditingContract.Presenter{
+@InjectViewState
+class ProfileEditingPresenter(): MvpPresenter<ProfileEditingContract.View>(), ProfileEditingContract.Presenter{
 
 //    private var repository: Repository<Profile> = ArrayListProfileRepository()
 //    private var companyRepository: Repository<Company> = ArrayListCompanyRepository()
     private var repository: Repository<Profile> = ProfileRepository()
     private var companyRepository: Repository<Company> = CompanyRepository()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getCompanies()
+        getProfile()
+    }
 
     override fun getCompanies() {
         companyRepository.getAll()
@@ -34,14 +43,14 @@ class ProfileEditingPresenter(var view: ProfileEditingContract.View): ProfileEdi
             }.toList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{ view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe{ viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
                 { companies ->
-                    view.fillSpinnerWithCompanies(companies) },
+                    viewState.fillSpinnerWithCompanies(companies) },
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
@@ -50,18 +59,18 @@ class ProfileEditingPresenter(var view: ProfileEditingContract.View): ProfileEdi
         repository.get()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{ view.showLoading() }
-            .doOnTerminate { view.hideLoading() }
+            .doOnSubscribe{ viewState.showLoading() }
+            .doOnTerminate { viewState.hideLoading() }
             .subscribe(
-                { profile -> view.showProfile(profile) },
+                { profile -> viewState.showProfile(profile) },
                 { exception -> when(exception){
-                    is IllegalAccessException -> view.openLoginPage()
-                    else -> view.showError(exception.message ?: unknownException)
+                    is IllegalAccessException -> viewState.openLoginPage()
+                    else -> viewState.showError(exception.message ?: unknownException)
                 } }
             )
     }
 
-    override fun setProfile(profile: ProfileDto) {
+    override fun saveProfile(profile: ProfileDto) {
         if (profile.isFullFilled()){
             repository.add(
                 Profile(
@@ -77,13 +86,13 @@ class ProfileEditingPresenter(var view: ProfileEditingContract.View): ProfileEdi
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe{ view.showLoading() }
-                .doOnTerminate{ view.hideLoading() }
+                .doOnSubscribe{ viewState.showLoading() }
+                .doOnTerminate{ viewState.hideLoading() }
                 .subscribe (
-                    { view.finishActivity() },
+                    { viewState.finishActivity() },
                     { exception -> when(exception){
-                        is IllegalAccessException -> view.openLoginPage()
-                        else -> view.showError(exception.message ?: unknownException)
+                        is IllegalAccessException -> viewState.openLoginPage()
+                        else -> viewState.showError(exception.message ?: unknownException)
                     } }
                 )
         } else {
@@ -97,7 +106,7 @@ class ProfileEditingPresenter(var view: ProfileEditingContract.View): ProfileEdi
                 }
                 else -> return // unknownError
             }
-            view.showError(message)
+            viewState.showError(message)
         }
     }
 }
