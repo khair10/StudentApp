@@ -12,7 +12,7 @@ class ProfileMapper: Mapper<NetworkProfile, Profile> {
         return Profile(
             from.id,
             from.name,
-            CompanyItem(from.company.id, from.company.name),
+            CompanyItem(from.company?.id ?: -1, from.company?.name ?: ""),
             from.phone,
             from.vk,
             from.telegram,

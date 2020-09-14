@@ -20,14 +20,28 @@
         tools:layout_editor_absoluteX="0dp"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="?attr/colorPrimary"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/pb_loading">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -37,8 +51,8 @@
                 android:id="@+id/cv_login_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                android:layout_margin="8dp">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,14 +64,14 @@
                     <ImageView
                         android:layout_width="145dp"
                         android:layout_height="163dp"
-                        app:srcCompat="@drawable/company"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        app:srcCompat="@drawable/company" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_marginTop="32dp"
                         android:id="@+id/til_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
                         android:hint="@string/label_login_with_colon"
                         app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1">
 
@@ -96,26 +110,16 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_registration"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/action_registration"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        android:text="@string/action_registration" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <ProgressBar
-        android:id="@+id/pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="?attr/colorPrimary"
-        android:indeterminateTintMode="src_atop"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

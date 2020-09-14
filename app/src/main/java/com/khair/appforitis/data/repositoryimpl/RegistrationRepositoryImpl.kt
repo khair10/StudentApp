@@ -16,5 +16,6 @@ class RegistrationRepositoryImpl: RegistrationRepository<RegistrationForm> {
     override fun registrate(registrationForm: RegistrationForm): Completable {
         val networkRegistrationForm = registrationMapper.map(registrationForm)
         return apiFactory.authService.registrate(networkRegistrationForm)
+        //TODO Profile to realm
     }
 }

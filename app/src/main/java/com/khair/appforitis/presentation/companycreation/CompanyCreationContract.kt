@@ -1,9 +1,10 @@
 package com.khair.appforitis.presentation.companycreation
 
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.presentation.companycreation.dto.CompanyCreationDto
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 interface CompanyCreationContract {
 
@@ -12,6 +13,7 @@ interface CompanyCreationContract {
         fun addCompany(item: CompanyCreationDto)
     }
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
     interface View: MvpView {
         @StateStrategyType(OneExecutionStateStrategy::class)
         fun showError(message: String)

@@ -2,61 +2,78 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khair.appforitis">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_jflogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".presentation.splash.SplashActivity"
+        <activity android:name=".presentation.recallsforcompany.CompanyRecallsActivity"
+            android:icon="@mipmap/ic_jflogo"></activity>
+        <activity
+            android:name=".presentation.splash.SplashActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:theme="@style/Theme.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.registration.RegistrationActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.login.LoginActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="presentation.logintemp.ui.login.LoginTempActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:label="@string/title_activity_login_temp" />
-        <activity android:name=".presentation.profile.ProfileActivity" />
+        <activity android:name=".presentation.profile.ProfileActivity"
+            android:icon="@mipmap/ic_jflogo"/>
         <activity
             android:name=".presentation.profileediting.ProfileEditingActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.vacancycreation.VacancyCreationActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.recallcreation.RecallCreationActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.companycreation.CompanyCreationActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".presentation.vacancy.VacancyActivity" />
-        <activity android:name=".presentation.company.CompanyActivity" />
-        <activity android:name=".presentation.recall.RecallActivity" />
+        <activity android:name=".presentation.vacancy.VacancyActivity"
+            android:icon="@mipmap/ic_jflogo"/>
+        <activity android:name=".presentation.company.CompanyActivity"
+            android:icon="@mipmap/ic_jflogo"/>
+        <activity android:name=".presentation.recall.RecallActivity"
+            android:icon="@mipmap/ic_jflogo"/>
         <activity
             android:name=".presentation.main.MainActivity"
+            android:icon="@mipmap/ic_jflogo"
             android:label="@string/app_name">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

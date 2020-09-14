@@ -9,9 +9,6 @@ import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -20,6 +17,10 @@ import com.khair.appforitis.R
 import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.domain.entity.Company
 import com.khair.appforitis.presentation.login.LoginActivity
+import com.khair.appforitis.presentation.recallsforcompany.CompanyRecallsActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
 class CompanyActivity : MvpAppCompatActivity(), CompanyContract.View {
 
@@ -69,7 +70,7 @@ class CompanyActivity : MvpAppCompatActivity(), CompanyContract.View {
             tvCompanyPhone.text = phone
             tvCompanyRating.text = rating.toString()
             rbCompanyRating.rating = rating
-            tvRecallsCount.text = recallsCount.toString()
+            tvRecallsCount.text = "($recallsCount чел.)"
             tvCompanyDescription.text = information
         }
     }
@@ -116,7 +117,7 @@ class CompanyActivity : MvpAppCompatActivity(), CompanyContract.View {
 
     private fun initViewListeners() {
         btnShowRecalls.setOnClickListener {
-            // TODO
+            CompanyRecallsActivity.start(this, tvCompanyName.text.toString())
         }
     }
 }

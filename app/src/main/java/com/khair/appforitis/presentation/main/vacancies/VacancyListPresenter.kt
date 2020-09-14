@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.main.vacancies
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.VacancyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListVacancyRepository
 import com.khair.appforitis.domain.entity.Vacancy
@@ -12,6 +10,8 @@ import com.khair.appforitis.unknownException
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class VacancyListPresenter(): MvpPresenter<VacancyListContract.View>(), VacancyListContract.Presenter {
@@ -22,9 +22,15 @@ private val vacancyRepository: Repository<Vacancy> =
     VacancyRepository()
     private val vacancyMapper: OneWayMapper<Vacancy, VacancyPreviewDto> = VacancyMapper()
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getVacancies()
+    }
+
     override fun getVacancies() {
         vacancyRepository.getAll()
             .concatMap { Flowable.fromIterable(it) }
+            .sorted { r1, r2 -> r1.date.compareTo(r2.date)}
             .map { vacancyMapper.map(it) }
             .toList()
             .subscribeOn(Schedulers.io())

@@ -59,7 +59,7 @@ class ArrayListProfileRepository: Repository<Profile> {
             Profile(
                 sourceProfile.id,
                 sourceProfile.name,
-                CompanyItem(sourceProfile.company.id, sourceProfile.company.name),
+                CompanyItem(sourceProfile.company!!.id, sourceProfile.company!!.name),
                 sourceProfile.phone,
                 sourceProfile.vk,
                 sourceProfile.telegram,
@@ -74,7 +74,7 @@ class ArrayListProfileRepository: Repository<Profile> {
                Profile(
                     it.id,
                     it.name,
-                    CompanyItem(it.company.id, it.company.name),
+                    CompanyItem(it.company!!.id, it.company!!.name),
                     it.phone,
                     it.vk,
                     it.telegram,
@@ -106,7 +106,7 @@ class ArrayListProfileRepository: Repository<Profile> {
             Profile(
                 sourceProfile.id,
                 sourceProfile.name,
-                CompanyItem(sourceProfile.company.id, sourceProfile.company.name),
+                CompanyItem(sourceProfile.company!!.id, sourceProfile.company!!.name),
                 sourceProfile.phone,
                 sourceProfile.vk,
                 sourceProfile.telegram,

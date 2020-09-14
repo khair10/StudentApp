@@ -2,7 +2,6 @@ package com.khair.appforitis.presentation.main.recalls
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
@@ -13,11 +12,8 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.SearchView
 import androidx.core.graphics.ColorUtils
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.MvpAppCompatFragment
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -29,6 +25,8 @@ import com.khair.appforitis.presentation.main.recalls.dto.RecallPreviewDto
 import com.khair.appforitis.presentation.main.recalls.util.RecallListAdapter
 import com.khair.appforitis.presentation.recall.RecallActivity
 import com.khair.appforitis.presentation.recallcreation.RecallCreationActivity
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
 class RecallListFragment : MvpAppCompatFragment(), Navigation, RecallListContract.View {
 

@@ -8,17 +8,18 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Profile
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profileediting.dto.CompanyDto
 import com.khair.appforitis.presentation.profileediting.dto.ProfileDto
 import kotlinx.android.synthetic.main.activity_profile_editing.*
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 class ProfileEditingActivity : MvpAppCompatActivity(), ProfileEditingContract.View {
 
@@ -148,17 +149,22 @@ class ProfileEditingActivity : MvpAppCompatActivity(), ProfileEditingContract.Vi
     private fun initViewListeners() {
         btnEdit.setOnClickListener {
             hideKeyboard()
-            presenter.saveProfile(
-                ProfileDto(
-                    etName.text.toString(),
-                    CompanyDto(company?.id ?: -1L, company?.name ?: ""),
-                    etPhone.text.toString(),
-                    etVk.text.toString(),
-                    etTelegram.text.toString(),
-                    etFacebook.text.toString(),
-                    etAdditionalDescription.text.toString()
+            if(ConnectionManager.hasConnection(this)){
+                presenter.saveProfile(
+                    ProfileDto(
+                        etName.text.toString(),
+                        CompanyDto(company?.id ?: -1L, company?.name ?: ""),
+                        etPhone.text.toString(),
+                        etVk.text.toString(),
+                        etTelegram.text.toString(),
+                        etFacebook.text.toString(),
+                        etAdditionalDescription.text.toString()
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         spinCompany.setOnItemClickListener { adapterView, _, position, _ ->
             run {

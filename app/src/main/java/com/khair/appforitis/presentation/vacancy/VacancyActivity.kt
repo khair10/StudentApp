@@ -4,22 +4,24 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Vacancy
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profile.ProfileActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
 class VacancyActivity : MvpAppCompatActivity(), VacancyContract.View {
 
@@ -70,7 +72,7 @@ class VacancyActivity : MvpAppCompatActivity(), VacancyContract.View {
             tvVacancySalary.text = salary.toString()
             tvCompanyName.text = company.name
             rbCompanyRating.rating = rating
-            tvRecallsCount.text = recallsCount.toString()
+            tvRecallsCount.text = "($recallsCount чел.)"
             tvVacancy.text = information
         }
     }
@@ -115,13 +117,18 @@ class VacancyActivity : MvpAppCompatActivity(), VacancyContract.View {
 
     private fun initViewListeners() {
         btnShowDetails.setOnClickListener {
-            if(studentId != -1L)
+            if(ConnectionManager.hasConnection(this) && studentId != -1L){
                 ProfileActivity.start(this, studentId)
-            // TODO
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         tvCompanyName.setOnClickListener {
-            if(companyId != -1L)
-                CompanyActivity.start(this, studentId)
+            if(companyId != -1L) {
+                Log.d("MAIN", "COMPANY ID = $companyId")
+                CompanyActivity.start(this, companyId)
+            }
         }
     }
 }

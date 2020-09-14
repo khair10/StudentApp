@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.main.companies
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
@@ -12,6 +10,8 @@ import com.khair.appforitis.unknownException
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class CompanyListPresenter(): MvpPresenter<CompanyListContract.View>(), CompanyListContract.Presenter {
@@ -29,6 +29,7 @@ class CompanyListPresenter(): MvpPresenter<CompanyListContract.View>(), CompanyL
     override fun getCompanies() {
         companyRepository.getAll()
             .concatMap { Flowable.fromIterable(it) }
+            .sorted { t, t2 -> t.name.compareTo(t2.name) } //TODO sorted
             .map {
                 companyMapper.map(it)
             }

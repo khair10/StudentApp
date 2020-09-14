@@ -24,7 +24,7 @@ class CompanyViewHolder(itemView: View, val navigation: Navigation) : RecyclerVi
         companyPreviewDto.run {
             rbRecallsOverall.rating = rating
             tvCompanyName.text = name
-            tvRecallsCount.text = count.toString()
+            tvRecallsCount.text = recallsCount
         }
         itemView.setOnClickListener {
             navigation.navigate(companyPreviewDto.id)

@@ -8,17 +8,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
+import android.widget.Toast
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.khair.appforitis.R
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.login.dto.LoginDto
 import com.khair.appforitis.presentation.main.MainActivity
 import com.khair.appforitis.presentation.registration.RegistrationActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 class LoginActivity : MvpAppCompatActivity(), LoginContract.View {
 
@@ -90,12 +92,17 @@ class LoginActivity : MvpAppCompatActivity(), LoginContract.View {
     private fun initViewListeners() {
         btnLogin.setOnClickListener {
             hideKeyboard()
-            presenter.login(
-                LoginDto(
-                    etLogin.text.toString(),
-                    etPassword.text.toString()
+            if(ConnectionManager.hasConnection(this)){
+                presenter.login(
+                    LoginDto(
+                        etLogin.text.toString(),
+                        etPassword.text.toString()
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         btnRegistration.setOnClickListener {
             RegistrationActivity.start(this)

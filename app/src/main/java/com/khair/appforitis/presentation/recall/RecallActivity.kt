@@ -6,16 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Recall
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.company.CompanyActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profile.ProfileActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
 class RecallActivity : MvpAppCompatActivity(), RecallContract.View {
 
@@ -104,19 +105,22 @@ class RecallActivity : MvpAppCompatActivity(), RecallContract.View {
         tvCompanyRating = findViewById(R.id.tv_company_rating)
         rbCompanyRating = findViewById(R.id.rb_company_rating)
         tvRecallDescription = findViewById(R.id.tv_recall)
-        ivVkontakte = findViewById(R.id.iv_vk)
-        ivTelegram = findViewById(R.id.iv_telegram)
-        ivLinkedIn = findViewById(R.id.iv_linked_in)
-        ivFacebook = findViewById(R.id.iv_facebook)
+//        ivVkontakte = findViewById(R.id.iv_vk)
+//        ivTelegram = findViewById(R.id.iv_telegram)
+//        ivLinkedIn = findViewById(R.id.iv_linked_in)
+//        ivFacebook = findViewById(R.id.iv_facebook)
         pbLoading = findViewById(R.id.pb_loading)
         mcContainer = findViewById(R.id.cv_recall_container)
     }
 
     private fun initViewListeners() {
         tvStudentName.setOnClickListener {
-            if(studentId != -1L)
+            if(ConnectionManager.hasConnection(this) && studentId != -1L){
                 ProfileActivity.start(this, studentId)
-            // TODO что если нет Айди
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         tvCompanyName.setOnClickListener {
             if(companyId != -1L)

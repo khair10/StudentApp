@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.vacancy
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.VacancyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListVacancyRepository
 import com.khair.appforitis.domain.entity.Vacancy
@@ -9,6 +7,8 @@ import com.khair.appforitis.domain.repository.Repository
 import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import java.util.concurrent.TimeUnit
 
 @InjectViewState

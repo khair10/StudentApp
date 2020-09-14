@@ -16,8 +16,6 @@ import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.MvpAppCompatFragment
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -29,6 +27,8 @@ import com.khair.appforitis.presentation.companycreation.CompanyCreationActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.main.companies.dto.CompanyPreviewDto
 import com.khair.appforitis.presentation.main.companies.util.CompanyListAdapter
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
 class CompanyListFragment : MvpAppCompatFragment(), Navigation, CompanyListContract.View {
 

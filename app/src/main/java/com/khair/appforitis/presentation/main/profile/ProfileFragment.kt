@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.arellomobile.mvp.MvpAppCompatFragment
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -19,6 +17,8 @@ import com.khair.appforitis.domain.entity.Profile
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.profileediting.ProfileEditingActivity
 import com.khair.appforitis.studentId
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
 class ProfileFragment : MvpAppCompatFragment(), ProfileContract.View {
 

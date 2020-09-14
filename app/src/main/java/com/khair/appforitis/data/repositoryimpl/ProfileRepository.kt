@@ -2,6 +2,7 @@ package com.khair.appforitis.data.repositoryimpl
 
 import com.khair.appforitis.data.cache.CacheListReader
 import com.khair.appforitis.data.cache.CacheSingleReader
+import com.khair.appforitis.data.cache.CacheSingleWriter
 import com.khair.appforitis.data.cache.CacheWriter
 import com.khair.appforitis.data.mapper.ProfileMapper
 import com.khair.appforitis.data.model.NetworkProfile
@@ -23,7 +24,6 @@ class ProfileRepository: Repository<Profile> {
 //        if(AuthenticationProvider.isAuthenticated()) {
 //            val authentication = AuthenticationProvider.fetchAuthentication()
             return apiFactory.profileService.getProfile(id)
-                .onErrorResumeNext(CacheSingleReader(id, NetworkProfile::class.java))
                 .map { profileMapper.map(it) }
 //        }
 //        return Flowable.error<Profile>(exception)
@@ -55,7 +55,10 @@ class ProfileRepository: Repository<Profile> {
     override fun get(): Flowable<Profile> {
 //        if(AuthenticationProvider.isAuthenticated()) {
 //            val authentication = AuthenticationProvider.fetchAuthentication()
-            return apiFactory.profileService.getMyProfile()
+        //TODO getMyProfile()
+            return apiFactory.profileService.getProfile(AuthenticationProvider.fetchAuthentication().id)
+                .flatMap (CacheSingleWriter(NetworkProfile::class.java))
+                .onErrorResumeNext(CacheSingleReader(AuthenticationProvider.fetchAuthentication().id, NetworkProfile::class.java))
                 .map { profileMapper.map(it) }
 //        }
 //        return Flowable.error<Profile>(exception)

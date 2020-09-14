@@ -1,9 +1,10 @@
 package com.khair.appforitis.presentation.recall
 
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.domain.entity.Recall
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 interface RecallContract {
 
@@ -12,12 +13,13 @@ interface RecallContract {
         fun getRecall(id: Long)
     }
 
-    interface View: MvpView{
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    interface View: MvpView {
 
         fun showRecall(recall: Recall)
         fun showLoading()
         fun hideLoading()
-        @StateStrategyType(AddToEndSingleStrategy::class)
+        @StateStrategyType(OneExecutionStateStrategy::class)
         fun showError(message: String)
         fun openLoginPage()
     }

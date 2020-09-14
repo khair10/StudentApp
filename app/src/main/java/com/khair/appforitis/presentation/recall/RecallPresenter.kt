@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.recall
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.RecallRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListRecallRepository
 import com.khair.appforitis.domain.entity.Recall
@@ -9,6 +7,8 @@ import com.khair.appforitis.domain.repository.Repository
 import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class RecallPresenter(val id: Long): MvpPresenter<RecallContract.View>(), RecallContract.Presenter {

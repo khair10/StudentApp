@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.companycreation
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.CompanyRepository
 import com.khair.appforitis.data.repositoryimpl.temporary.ArrayListCompanyRepository
 import com.khair.appforitis.domain.entity.Company
@@ -11,6 +9,8 @@ import com.khair.appforitis.presentation.companycreation.dto.CompanyCreationDto
 import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class CompanyCreationPresenter: MvpPresenter<CompanyCreationContract.View>(), CompanyCreationContract.Presenter {

@@ -8,20 +8,22 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
+import android.widget.Toast
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.khair.appforitis.R
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.login.LoginContract
 import com.khair.appforitis.presentation.login.LoginPresenter
 import com.khair.appforitis.presentation.login.dto.LoginDto
 import com.khair.appforitis.presentation.registration.dto.ProfileDto
 import com.khair.appforitis.presentation.registration.dto.RegistrationDto
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 class RegistrationActivity : MvpAppCompatActivity(), RegistrationContract.View {
 
@@ -100,17 +102,22 @@ class RegistrationActivity : MvpAppCompatActivity(), RegistrationContract.View {
     private fun initViewListeners() {
         btnRegistrate.setOnClickListener {
             hideKeyboard()
-            presenter.registration(
-                RegistrationDto(
-                    etLogin.text.toString(),
-                    etPassword.text.toString(),
-                    etPasswordConfirm.text.toString(),
-                    ProfileDto(
-                        etName.text.toString(),
-                        etPhone.text.toString()
+            if(ConnectionManager.hasConnection(this)){
+                presenter.registration(
+                    RegistrationDto(
+                        etLogin.text.toString(),
+                        etPassword.text.toString(),
+                        etPasswordConfirm.text.toString(),
+                        ProfileDto(
+                            etName.text.toString(),
+                            etPhone.text.toString()
+                        )
                     )
                 )
-            )
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         btnLogin.setOnClickListener {
             LoginActivity.start(this)

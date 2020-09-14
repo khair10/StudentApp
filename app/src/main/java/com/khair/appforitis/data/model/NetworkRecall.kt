@@ -7,11 +7,9 @@ import io.realm.annotations.PrimaryKey
 open class NetworkRecall(
     @PrimaryKey
     var id: Long = 0,
-    @Ignore
-    val student: NetworkStudentItemDto = NetworkStudentItemDto(),
+    var student: NetworkStudentItemDto? = null,
     var information: String = "",
-    @Ignore
-    val company: NetworkCompanyItemDto = NetworkCompanyItemDto(),
+    var company: NetworkCompanyItemDto? = null,
     var rating: Float = 0F,
     var date: Long = 0
 ): RealmObject()

@@ -1,7 +1,5 @@
 package com.khair.appforitis.presentation.registration
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.khair.appforitis.data.repositoryimpl.RegistrationRepositoryImpl
 import com.khair.appforitis.domain.entity.ProfileItem
 import com.khair.appforitis.domain.entity.RegistrationForm
@@ -10,6 +8,8 @@ import com.khair.appforitis.presentation.registration.dto.RegistrationDto
 import com.khair.appforitis.unknownException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class RegistrationPresenter(): MvpPresenter<RegistrationContract.View>(), RegistrationContract.Presenter {

@@ -7,17 +7,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.khair.appforitis.R
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.companycreation.dto.CompanyCreationDto
 import com.khair.appforitis.presentation.login.LoginActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 
 class CompanyCreationActivity : MvpAppCompatActivity(), CompanyCreationContract.View {
@@ -98,15 +100,20 @@ class CompanyCreationActivity : MvpAppCompatActivity(), CompanyCreationContract.
     private fun initViewListeners() {
         btnCreate.setOnClickListener {
             hideKeyboard()
-            presenter.addCompany(
-                CompanyCreationDto(
-                    etName.text.toString(),
-                    etAddress.text.toString(),
-                    etWebSite.text.toString(),
-                    etContactNumber.text.toString(),
-                    etInfo.text.toString()
+            if(ConnectionManager.hasConnection(this)){
+                presenter.addCompany(
+                    CompanyCreationDto(
+                        etName.text.toString(),
+                        etAddress.text.toString(),
+                        etWebSite.text.toString(),
+                        etContactNumber.text.toString(),
+                        etInfo.text.toString()
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 

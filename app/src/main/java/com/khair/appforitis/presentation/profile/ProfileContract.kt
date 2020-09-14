@@ -1,9 +1,10 @@
 package com.khair.appforitis.presentation.profile
 
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.domain.entity.Profile
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 interface ProfileContract {
 
@@ -12,12 +13,13 @@ interface ProfileContract {
         fun getProfile(id: Long)
     }
 
-    interface View: MvpView{
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    interface View: MvpView {
 
         fun showProfile(profile: Profile)
         fun showLoading()
         fun hideLoading()
-        @StateStrategyType(AddToEndSingleStrategy::class)
+        @StateStrategyType(OneExecutionStateStrategy::class)
         fun showException(message: String)
         fun openLoginPage()
     }

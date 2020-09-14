@@ -7,18 +7,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.ProgressBar
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.khair.appforitis.R
+import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
 import com.khair.appforitis.presentation.vacancy.VacancyActivity
@@ -27,6 +23,8 @@ import com.khair.appforitis.presentation.vacancycreation.dto.StudentDto
 import com.khair.appforitis.presentation.vacancycreation.dto.VacancyCreationDto
 import com.khair.appforitis.studentId
 import com.khair.appforitis.studentName
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 
 class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.View {
@@ -123,15 +121,20 @@ class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.
     private fun initViewListeners() {
         btnCreate.setOnClickListener {
             hideKeyboard()
-            presenter.addVacancy(
-                VacancyCreationDto(
-                    etName.text.toString(),
-                    etSalary.text.toString(),
-                    company,
-                    etDescription.text.toString(),
-                    StudentDto(studentId, studentName)
+            if(ConnectionManager.hasConnection(this)){
+                presenter.addVacancy(
+                    VacancyCreationDto(
+                        etName.text.toString(),
+                        etSalary.text.toString(),
+                        company,
+                        etDescription.text.toString(),
+                        StudentDto(studentId, studentName)
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         spinCompanies.setOnItemClickListener { adapterView, _, position, _ ->
             run {

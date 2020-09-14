@@ -18,6 +18,6 @@ class LoginRepository: AuthRepository<LoginForm> {
     override fun login(loginForm: LoginForm): Flowable<Authentication> {
         val networkLoginForm = loginMapper.map(loginForm)
         return apiFactory.authService.login(networkLoginForm)
-            .map { item -> Authentication(item.studentItemDto.studentId, item.studentItemDto.name, item.jwtToken, item.refreshToken) }
+            .map { item -> Authentication(item.studentItemDto.id, item.studentItemDto.name, item.jwtToken, item.refreshToken) }
     }
 }

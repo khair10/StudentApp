@@ -1,29 +1,28 @@
-package com.khair.appforitis.presentation.recallcreation
+package com.khair.appforitis.presentation.recallsforcompany
 
-import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
-import com.khair.appforitis.presentation.recallcreation.dto.RecallCreationDto
+import com.khair.appforitis.presentation.main.recalls.SortOption
+import com.khair.appforitis.presentation.main.recalls.dto.RecallPreviewDto
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
-interface RecallCreationContract {
+interface CompanyRecallListContract {
 
-    interface Presenter{
+    interface Presenter {
 
-        fun getCompanies()
-        fun addRecall(item: RecallCreationDto)
+        fun getRecalls()
     }
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     interface View: MvpView {
 
-        fun fillSpinnerWithCompanies(companies: List<CompanyItemDto>)
         fun showLoading()
         fun hideLoading()
         @StateStrategyType(OneExecutionStateStrategy::class)
         fun showError(message: String)
-        fun finishActivity()
+        fun showRecalls(recalls: List<RecallPreviewDto>)
+        fun showEmpty()
         fun openLoginPage()
     }
 }

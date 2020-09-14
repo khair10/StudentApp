@@ -1,9 +1,10 @@
 package com.khair.appforitis.presentation.main.vacancies
 
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.presentation.main.vacancies.dto.VacancyPreviewDto
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 interface VacancyListContract {
 
@@ -13,11 +14,12 @@ interface VacancyListContract {
         fun getVacancies(query: String?)
     }
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
     interface View: MvpView {
 
         fun showLoading()
         fun hideLoading()
-        @StateStrategyType(AddToEndSingleStrategy::class)
+        @StateStrategyType(OneExecutionStateStrategy::class)
         fun showError(message: String)
         fun showVacancies(vacancies: List<VacancyPreviewDto>)
         fun showEmpty()

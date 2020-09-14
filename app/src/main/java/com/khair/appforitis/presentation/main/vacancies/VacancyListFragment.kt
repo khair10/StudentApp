@@ -17,8 +17,6 @@ import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.MvpAppCompatFragment
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khair.appforitis.R
 import com.khair.appforitis.itemBottomMargin
@@ -30,6 +28,8 @@ import com.khair.appforitis.presentation.main.vacancies.dto.VacancyPreviewDto
 import com.khair.appforitis.presentation.main.vacancies.util.VacancyListAdapter
 import com.khair.appforitis.presentation.vacancy.VacancyActivity
 import com.khair.appforitis.presentation.vacancycreation.VacancyCreationActivity
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
 
 class VacancyListFragment : MvpAppCompatFragment(), Navigation, VacancyListContract.View {

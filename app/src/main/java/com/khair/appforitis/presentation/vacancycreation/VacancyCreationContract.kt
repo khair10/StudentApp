@@ -1,10 +1,11 @@
 package com.khair.appforitis.presentation.vacancycreation
 
-import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.khair.appforitis.presentation.vacancycreation.dto.CompanyDto
 import com.khair.appforitis.presentation.vacancycreation.dto.VacancyCreationDto
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 interface VacancyCreationContract {
 
@@ -14,12 +15,13 @@ interface VacancyCreationContract {
         fun addVacancy(item: VacancyCreationDto)
     }
 
-    interface View: MvpView{
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    interface View: MvpView {
 
         fun fillSpinnerWithCompanies(companies: List<CompanyDto>)
         fun showLoading()
         fun hideLoading()
-        @StateStrategyType(AddToEndSingleStrategy::class)
+        @StateStrategyType(OneExecutionStateStrategy::class)
         fun showError(message: String)
         fun finishActivity()
         fun openLoginPage()

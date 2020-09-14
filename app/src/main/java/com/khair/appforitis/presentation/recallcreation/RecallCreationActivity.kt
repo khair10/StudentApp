@@ -9,8 +9,6 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -23,6 +21,8 @@ import com.khair.appforitis.presentation.recallcreation.dto.RecallCreationDto
 import com.khair.appforitis.presentation.recallcreation.dto.StudentItemDto
 import com.khair.appforitis.studentId
 import com.khair.appforitis.studentName
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 
 class RecallCreationActivity : MvpAppCompatActivity(), RecallCreationContract.View{
 

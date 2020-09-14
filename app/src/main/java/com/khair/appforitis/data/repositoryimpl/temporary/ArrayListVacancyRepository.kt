@@ -65,11 +65,11 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.id,
                 sourceVacancy.name,
                 sourceVacancy.information,
-                CompanyItem(sourceVacancy.company.id, sourceVacancy.company.name),
+                CompanyItem(sourceVacancy.company!!.id, sourceVacancy.company!!.name),
                 sourceVacancy.rating,
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
-                StudentItem(sourceVacancy.student.studentId, sourceVacancy.student.name),
+                StudentItem(sourceVacancy.student!!.id, sourceVacancy.student!!.name),
                 Date(sourceVacancy.date)
             )
         )
@@ -81,11 +81,11 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                     it.id,
                     it.name,
                     it.information,
-                    CompanyItem(it.company.id, it.company.name),
+                    CompanyItem(it.company!!.id, it.company!!.name),
                     it.rating,
                     it.recallsCount,
                     it.salary,
-                    StudentItem(it.student.studentId, it.student.name),
+                    StudentItem(it.student!!.id, it.student!!.name),
                     Date(it.date)
                 )
             }
@@ -117,11 +117,11 @@ class ArrayListVacancyRepository: Repository<Vacancy>{
                 sourceVacancy.id,
                 sourceVacancy.name,
                 sourceVacancy.information,
-                CompanyItem(sourceVacancy.company.id, sourceVacancy.company.name),
+                CompanyItem(sourceVacancy.company!!.id, sourceVacancy.company!!.name),
                 sourceVacancy.rating,
                 sourceVacancy.recallsCount,
                 sourceVacancy.salary,
-                StudentItem(sourceVacancy.student.studentId, sourceVacancy.student.name),
+                StudentItem(sourceVacancy.student!!.id, sourceVacancy.student!!.name),
                 Date(sourceVacancy.date)
             )
         )

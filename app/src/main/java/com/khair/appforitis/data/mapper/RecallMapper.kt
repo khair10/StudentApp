@@ -14,9 +14,9 @@ class RecallMapper: Mapper<NetworkRecall, Recall> {
     override fun map(from: NetworkRecall): Recall {
         return Recall(
             from.id,
-            StudentItem(from.student.studentId, from.student.name),
+            StudentItem(from.student?.id ?: -1, from.student?.name ?: ""),
             from.information,
-            CompanyItem(from.company.id, from.company.name),
+            CompanyItem(from.company?.id ?: -1, from.company?.name ?: ""),
             from.rating,
             Date(from.date)
         )

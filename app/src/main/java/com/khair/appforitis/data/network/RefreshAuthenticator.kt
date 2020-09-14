@@ -37,7 +37,7 @@ class RefreshAuthenticator: Authenticator {
                 refreshTokenResponse.body()?.let {
                     authProvider.saveAuthentication(
                         Authentication(
-                            it.studentItemDto.studentId,
+                            it.studentItemDto.id,
                             it.studentItemDto.name,
                             it.jwtToken,
                             it.refreshToken

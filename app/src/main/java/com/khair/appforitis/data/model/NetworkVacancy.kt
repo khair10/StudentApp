@@ -10,12 +10,10 @@ open class NetworkVacancy(
     var id: Long = 0,
     var name: String = "",
     var information: String = "",
-    @Ignore
-    var company: NetworkCompanyItemDto = NetworkCompanyItemDto(),
+    var company: NetworkCompanyItemDto? = null,
     var rating: Float = 0F,
     var recallsCount: Int = 0,
     var salary: Int = 0,
-    @Ignore
-    var student: NetworkStudentItemDto = NetworkStudentItemDto(),
+    var student: NetworkStudentItemDto? = null,
     var date: Long = 0
 ): RealmObject()

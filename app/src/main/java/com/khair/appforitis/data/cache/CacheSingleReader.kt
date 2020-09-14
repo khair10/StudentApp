@@ -13,6 +13,6 @@ class CacheSingleReader<T: RealmObject>(val id: Long, val mClass: Class<T>):
         if(results.first() != null)
             return Flowable.just(realm.copyFromRealm(results.first()!!))
         else
-            throw t
+            return Flowable.empty()
     }
 }

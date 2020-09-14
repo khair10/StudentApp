@@ -9,13 +9,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.card.MaterialCardView
 import com.khair.appforitis.R
 import com.khair.appforitis.domain.entity.Profile
 import com.khair.appforitis.presentation.login.LoginActivity
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
 class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
 
@@ -43,7 +43,7 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
 
     @ProvidePresenter
     fun provideProfilePresenter(): ProfilePresenter{
-        return ProfilePresenter(intent.getLongExtra(ID, 0L))
+        return ProfilePresenter(intent.getLongExtra(ID, 0))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +87,9 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
     private fun initToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener{
+            onBackPressed()
+        }
     }
 
     private fun initViews() {

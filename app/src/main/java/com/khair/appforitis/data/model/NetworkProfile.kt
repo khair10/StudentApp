@@ -8,8 +8,7 @@ open class NetworkProfile(
     @PrimaryKey
     var id: Long = 0,
     var name: String = "",
-    @Ignore
-    var company: NetworkCompanyItemDto = NetworkCompanyItemDto(),
+    var company: NetworkCompanyItemDto? = null,
     var phone: String = "",
     var vk: String = "",
     var telegram: String = "",
