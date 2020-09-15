@@ -14,10 +14,10 @@ class ProfileMapper: Mapper<NetworkProfile, Profile> {
             from.name,
             CompanyItem(from.company?.id ?: -1, from.company?.name ?: ""),
             from.phone,
-            from.vk,
-            from.telegram,
-            from.facebook,
-            from.additionalInformation
+            from.vk ?: "",
+            from.telegram ?: "",
+            from.facebook ?: "",
+            from.additionalInformation ?: ""
         )
     }
 

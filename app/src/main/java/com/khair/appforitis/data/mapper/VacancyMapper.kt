@@ -34,7 +34,7 @@ class VacancyMapper: Mapper<NetworkVacancy, Vacancy> {
             to.rating,
             to.recallsCount,
             to.salary,
-            NetworkStudentItemDto(to.company.id, to.company.name),
+            NetworkStudentItemDto(to.student.id, to.student.name),
             to.date.time
         )
     }

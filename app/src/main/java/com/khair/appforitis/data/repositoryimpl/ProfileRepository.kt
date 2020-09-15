@@ -47,6 +47,7 @@ class ProfileRepository: Repository<Profile> {
 //        if(AuthenticationProvider.isAuthenticated()) {
 //            val authentication = AuthenticationProvider.fetchAuthentication()
             val networkProfile = profileMapper.reverseMap(item)
+            networkProfile.id = AuthenticationProvider.fetchAuthentication().id
             return apiFactory.profileService.editProfile(networkProfile)
 //        }
 //        return Completable.error(exception)

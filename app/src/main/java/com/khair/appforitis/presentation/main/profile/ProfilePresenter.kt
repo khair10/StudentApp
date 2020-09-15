@@ -32,7 +32,10 @@ class ProfilePresenter(): MvpPresenter<ProfileContract.View>(), ProfileContract.
                 { profile -> viewState.showProfile(profile) },
                 { exception -> when(exception){
                     is IllegalAccessException -> viewState.openLoginPage()
-                    else -> viewState.showError(exception.message ?: unknownException)
+                    else -> {
+                        exception.printStackTrace()
+                        viewState.showError(exception.message ?: unknownException)
+                    }
                 } }
             )
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -55,6 +56,7 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
     }
 
     override fun showProfile(profile: Profile) {
+        Log.d("PROFILE", profile.toString())
         profile.run {
             tvName.text = name
             tvCompanyName.text = company.name

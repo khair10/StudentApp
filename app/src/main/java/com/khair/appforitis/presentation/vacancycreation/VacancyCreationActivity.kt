@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -14,6 +15,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.khair.appforitis.R
+import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.presentation.base.ConnectionManager
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
@@ -25,6 +27,7 @@ import com.khair.appforitis.studentId
 import com.khair.appforitis.studentName
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
+import java.security.AuthProvider
 
 
 class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.View {
@@ -122,14 +125,18 @@ class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.
         btnCreate.setOnClickListener {
             hideKeyboard()
             if(ConnectionManager.hasConnection(this)){
+                val vac = VacancyCreationDto(
+                    etName.text.toString(),
+                    etSalary.text.toString(),
+                    company,
+                    etDescription.text.toString(),
+                    StudentDto(
+                        AuthenticationProvider.fetchAuthentication()?.id,
+                        AuthenticationProvider.fetchAuthentication()?.name
+                    ))
+                Log.d("MAIN", vac.toString())
                 presenter.addVacancy(
-                    VacancyCreationDto(
-                        etName.text.toString(),
-                        etSalary.text.toString(),
-                        company,
-                        etDescription.text.toString(),
-                        StudentDto(studentId, studentName)
-                    )
+                    vac
                 )
             } else {
                 Toast.makeText(this, "Проверьте соединение с сетью", Toast.LENGTH_SHORT)
@@ -141,6 +148,7 @@ class VacancyCreationActivity : MvpAppCompatActivity(), VacancyCreationContract.
                 val item: Any = adapterView.getItemAtPosition(position)
                 if (item is CompanyDto) {
                     // TODO presenter.rememberSelection()
+                    Log.d("MAIN", item.toString())
                     company = CompanyDto(item.id, item.name, item.rating, item.recallsCount)
                 }
             }

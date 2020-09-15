@@ -14,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.khair.appforitis.R
+import com.khair.appforitis.data.network.AuthenticationProvider
 import com.khair.appforitis.presentation.companycreation.CompanyCreationActivity
 import com.khair.appforitis.presentation.login.LoginActivity
 import com.khair.appforitis.presentation.recallcreation.dto.CompanyItemDto
@@ -119,7 +120,8 @@ class RecallCreationActivity : MvpAppCompatActivity(), RecallCreationContract.Vi
             hideKeyboard()
             presenter.addRecall(
                 RecallCreationDto(
-                    StudentItemDto(studentId, studentName),
+                    StudentItemDto(AuthenticationProvider.authentication?.id ?: 0,
+                        AuthenticationProvider.authentication?.name ?: ""),
                     company,
                     etDescription.text.toString(),
                     rbRationg.rating

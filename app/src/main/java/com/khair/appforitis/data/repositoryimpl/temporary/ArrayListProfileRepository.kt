@@ -61,10 +61,10 @@ class ArrayListProfileRepository: Repository<Profile> {
                 sourceProfile.name,
                 CompanyItem(sourceProfile.company!!.id, sourceProfile.company!!.name),
                 sourceProfile.phone,
-                sourceProfile.vk,
-                sourceProfile.telegram,
-                sourceProfile.facebook,
-                sourceProfile.additionalInformation
+                sourceProfile.vk ?: "",
+                sourceProfile.telegram ?: "",
+                sourceProfile.facebook ?: "",
+                sourceProfile.additionalInformation ?: ""
             )
         )
     }
@@ -76,10 +76,10 @@ class ArrayListProfileRepository: Repository<Profile> {
                     it.name,
                     CompanyItem(it.company!!.id, it.company!!.name),
                     it.phone,
-                    it.vk,
-                    it.telegram,
-                    it.facebook,
-                    it.additionalInformation
+                    it.vk ?: "",
+                    it.telegram ?: "",
+                    it.facebook ?: "",
+                    it.additionalInformation ?: ""
                 )
             }
         )
@@ -108,10 +108,10 @@ class ArrayListProfileRepository: Repository<Profile> {
                 sourceProfile.name,
                 CompanyItem(sourceProfile.company!!.id, sourceProfile.company!!.name),
                 sourceProfile.phone,
-                sourceProfile.vk,
-                sourceProfile.telegram,
-                sourceProfile.facebook,
-                sourceProfile.additionalInformation
+                sourceProfile.vk ?: "",
+                sourceProfile.telegram ?: "",
+                sourceProfile.facebook ?: "",
+                sourceProfile.additionalInformation ?: ""
             )
         )
     }
