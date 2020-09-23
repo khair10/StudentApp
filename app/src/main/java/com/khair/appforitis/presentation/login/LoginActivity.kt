@@ -26,7 +26,9 @@ class LoginActivity : MvpAppCompatActivity(), LoginContract.View {
 
     companion object {
         fun start(context: Context){
-            val intent = Intent(context, LoginActivity::class.java)
+            val intent = Intent(context, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
             context.startActivity(intent)
         }
     }
@@ -75,9 +77,9 @@ class LoginActivity : MvpAppCompatActivity(), LoginContract.View {
     private fun initToolbar() {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
+//        toolbar.setNavigationOnClickListener {
+//            onBackPressed()
+//        }
     }
 
     private fun initViews() {

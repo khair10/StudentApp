@@ -61,10 +61,11 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileContract.View {
             tvName.text = name
             tvCompanyName.text = company.name
             tvPhone.text = phone
-            tvVk.text = vk
-            tvTelegram.text = telegram
-            tvFacebook.text = facebook
-            tvAdditionalDescription.text = additionalInformation
+//            tvVk.text = vk
+            tvVk.text = if (vk.isBlank()) "Не указано" else vk
+            tvTelegram.text = if (telegram.isBlank()) "Не указано" else telegram
+            tvFacebook.text = if (facebook.isBlank()) "Не указано" else facebook
+            tvAdditionalDescription.text = if (additionalInformation.isBlank()) "Не указано" else additionalInformation
         }
     }
 

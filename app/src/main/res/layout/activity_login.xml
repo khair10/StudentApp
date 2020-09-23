@@ -16,7 +16,6 @@
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Вход"
-        app:navigationIcon="@drawable/ic_navigate_before_on_primary_24dp"
         tools:layout_editor_absoluteX="0dp"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
@@ -106,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@string/action_create" />
+                        android:text="@string/action_login" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_registration"

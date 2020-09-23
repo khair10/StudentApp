@@ -74,4 +74,5 @@
     <string name="label_login_with_colon">Логин:</string>
     <string name="label_password_with_colon">Пароль:</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="action_login">Войти</string>
 </resources>
